@@ -10,7 +10,6 @@ export class AuthApiService implements AuthServicePort {
       );
 
       const token = response.data?.token;
-      if (!token) throw new Error("Token not found in response");
 
       return {
         success: true,
