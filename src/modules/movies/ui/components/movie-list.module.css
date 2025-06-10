@@ -1,0 +1,27 @@
+.section {
+  margin-bottom: 2rem;
+}
+
+.genreTitle {
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.horizontalScroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+  scroll-snap-type: x mandatory;
+}
+
+.horizontalScroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.horizontalScroll::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 4px;
+}

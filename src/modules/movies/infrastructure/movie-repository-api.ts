@@ -6,7 +6,7 @@ import { Movie } from "../domain/Movie";
 export function createMovieRepositoryApi(
   tokenRepository: TokenRepository
 ): MovieRepository {
-  async function get(): Promise<Movie[]> {
+  async function getAll(): Promise<Movie[]> {
     const token = await tokenRepository.get();
 
     if (!token) {
@@ -18,7 +18,6 @@ export function createMovieRepositoryApi(
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
       }
     );
@@ -39,7 +38,6 @@ export function createMovieRepositoryApi(
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
           },
         }
       );
@@ -54,7 +52,7 @@ export function createMovieRepositoryApi(
   }
 
   return {
-    get,
+    getAll,
     getById,
   };
 }

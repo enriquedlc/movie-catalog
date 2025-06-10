@@ -1,6 +1,6 @@
 import { Movie } from "./Movie";
 
 export interface MovieRepository {
-  get(): Promise<Movie[]>;
+  getAll(): Promise<Movie[]>;
   getById(id: string): Promise<Movie | null>;
 }
