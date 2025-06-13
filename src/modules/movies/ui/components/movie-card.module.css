@@ -1,0 +1,59 @@
+.card {
+  flex-shrink: 0;
+  transition: transform 0.2s;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin: 0.4rem;
+  transform-origin: center;
+  background-color: black;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Orientaciones */
+.vertical {
+  min-width: 120px;
+  max-width: 160px;
+  aspect-ratio: 2 / 3;
+}
+
+.horizontal {
+  min-width: 240px;
+  max-width: 300px;
+  aspect-ratio: 16 / 9;
+}
+
+/* Skeleton style */
+.skeleton {
+  background-color: #1a1a1a;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  background-color: #2a2a2a;
+  border-radius: 0.5rem;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
