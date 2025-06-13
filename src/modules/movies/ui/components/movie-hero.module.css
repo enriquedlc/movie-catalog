@@ -1,0 +1,70 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  z-index: 0;
+}
+
+/* Content above the image */
+.overlay {
+  position: relative;
+  z-index: 1;
+  padding: 2rem 1rem;
+  color: white;
+  max-width: 800px;
+}
+
+.title {
+  font-size: clamp(2rem, 6vw, 5rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.description {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  line-height: 1.5;
+  margin-bottom: 2rem;
+
+  /* Tres puntos si es demasiado larga */
+  display: -webkit-box;
+  line-clamp: 4;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.button {
+  background-color: #7b197f;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 0.75rem 5rem;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #961aa2;
+}
+
+@media (min-width: 768px) {
+  .overlay {
+    padding-left: 5vw;
+  }
+}

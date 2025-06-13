@@ -5,16 +5,19 @@ import axios from "axios";
 import { Genre } from "@/modules/movies/domain/Genre";
 import { Movie } from "@/modules/movies/domain/Movie";
 import { MovieList } from "@/modules/movies/ui/components/movie-list";
+import { MovieHero } from "@/modules/movies/ui/components/movie-hero";
 import styles from "./movies-page.module.css";
 
 interface MoviesPageClientProps {
   genres: Genre[];
   movies: Movie[];
+  heroMovie: Movie;
 }
 
 export default function MoviesPageClient({
   genres,
   movies,
+  heroMovie,
 }: MoviesPageClientProps) {
   const [selectedGenreId, setSelectedGenreId] = useState<string>("");
   const [moviesByGenre, setMoviesByGenre] = useState<Record<string, Movie[]>>(
@@ -45,15 +48,7 @@ export default function MoviesPageClient({
   return (
     <main className={styles.container}>
       {/* HERO */}
-      <section className={styles.hero}>
-        <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>THE LAST OF US</h1>
-          <p className={styles.heroDescription}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </p>
-          <button className={styles.heroButton}>Discover</button>
-        </div>
-      </section>
+      <MovieHero movie={heroMovie} />
 
       {/* CATEGORY SELECTOR */}
       <div className={styles.categorySelector}>

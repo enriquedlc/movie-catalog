@@ -13,5 +13,18 @@ export default async function MoviesPage() {
     movieRepository.getAll(),
   ]);
 
-  return <MoviesPageClient genres={genres} movies={movies} />;
+  console.log({ genres, movies });
+
+  // TODO: refactor
+  const movie = movies.find((m) =>
+    m.title.includes("the lord of the rings the return of the king")
+  );
+
+  return (
+    <MoviesPageClient
+      genres={genres}
+      movies={movies}
+      heroMovie={movie ?? movies[0]}
+    />
+  );
 }

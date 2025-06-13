@@ -32,14 +32,6 @@
   aspect-ratio: 16 / 9;
 }
 
-/* Desktop spacing */
-@media (min-width: 900px) {
-  .vertical {
-    min-width: 180px;
-    max-width: 220px;
-  }
-}
-
 /* Skeleton style */
 .skeleton {
   background-color: #1a1a1a;
