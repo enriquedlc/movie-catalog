@@ -12,6 +12,17 @@ interface MovieHeroProps {
 
 export function MovieHero({ movie, withDescription }: MovieHeroProps) {
   const [isDesktop, setIsDesktop] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (!withDescription) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % Array.from({ length: 4 }).length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [withDescription]);
 
   useEffect(() => {
     const checkIsDesktop = () => {
@@ -48,6 +59,16 @@ export function MovieHero({ movie, withDescription }: MovieHeroProps) {
             {movie.description || "Discover this story today."}
           </p>
           <button className={styles.button}>Discover</button>
+        </div>
+        <div className={styles.dots}>
+          {Array.from({ length: 4 }).map((_, i) => (
+            <span
+              key={i}
+              className={`${styles.dot} ${
+                i === currentIndex ? styles.active : ""
+              }`}
+            />
+          ))}
         </div>
       </section>
     );

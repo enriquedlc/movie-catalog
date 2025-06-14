@@ -16,13 +16,13 @@ export default async function MoviesPage() {
   console.log({ movies });
 
   // TODO: refactor
-  const movie = movies.find((m) => m.title.includes("monster, INC."));
+  const randomIndex = Math.floor(Math.random() * movies.length);
 
   return (
     <MoviesPageClient
       genres={genres}
       movies={movies}
-      heroMovie={movie ?? movies[0]}
+      heroMovie={movies[randomIndex]}
     />
   );
 }
