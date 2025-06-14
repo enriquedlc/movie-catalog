@@ -69,6 +69,12 @@
   font-weight: bold;
 }
 
+.metaStars {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
 .title {
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 800;
@@ -120,20 +126,30 @@
 
 .myList {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex-direction: column;
+  align-items: flex-start;
   margin: 1rem 0;
 }
 
-.listIcon {
-  font-size: 1.5rem;
-  color: #a020f0;
+.listButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background: none;
   border: none;
   cursor: pointer;
+  color: white;
+  font-weight: bold;
+  font-size: 0.875rem;
+  padding: 0.25rem;
 }
 
-.listText {
-  font-size: 0.875rem;
-  color: white;
+.icon {
+  font-size: 1.5rem;
+  color: #a020f0;
+  line-height: 1;
+}
+
+.text {
+  margin-top: 0.25rem;
 }

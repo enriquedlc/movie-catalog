@@ -41,16 +41,16 @@ export function MovieDetail({ movie }: MovieDetailProps) {
 
         {/* My List Button */}
         <div className={styles.myList}>
-          <button onClick={toggleList} className={styles.listIcon}>
-            {inList ? "★" : "+"}
+          <button onClick={toggleList} className={styles.listButton}>
+            <span className={styles.icon}>{inList ? "★" : "+"}</span>
+            <span className={styles.text}>
+              {inList ? "Remove from my list" : "Add to my list"}
+            </span>
           </button>
-          <span className={styles.listText}>
-            {inList ? "Remove from my list" : "Add to my list"}
-          </span>
         </div>
 
         <div className={styles.meta}>
-          <p>
+          <p className={styles.metaStars}>
             <strong>Rating:</strong> {renderStars(movie.rating)}
           </p>
           <p>
