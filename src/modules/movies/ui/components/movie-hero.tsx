@@ -1,16 +1,18 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { signOutAction } from "@/modules/auth/entrypoints/sign-out";
-import styles from "./movie-hero.module.css";
+
 import { Movie } from "@/modules/movies/domain/Movie";
 import { CustomImage } from "@/shared/ui/components/image";
 import { ProfilePhoto } from "@/shared/ui/components/profile-photo";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/dist/client/components/navigation";
 import { CustomButton } from "@/shared/ui/components/button";
 
+import styles from "./movie-hero.module.css";
+
 interface MovieHeroProps {
-  movie: Movie;
+  movie: Movie[];
   withDescription: boolean;
 }
 
@@ -19,15 +21,17 @@ export function MovieHero({ movie, withDescription }: MovieHeroProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const router = useRouter();
 
+  const currentMovie = movie[currentIndex] ?? movie[0];
+
   useEffect(() => {
     if (!withDescription) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % Array.from({ length: 4 }).length);
+      setCurrentIndex((prev) => (prev + 1) % movie.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [withDescription]);
+  }, [withDescription, movie.length]);
 
   useEffect(() => {
     const checkIsDesktop = () => {
@@ -36,13 +40,9 @@ export function MovieHero({ movie, withDescription }: MovieHeroProps) {
 
     checkIsDesktop();
     window.addEventListener("resize", checkIsDesktop);
-
-    return () => {
-      window.removeEventListener("resize", checkIsDesktop);
-    };
+    return () => window.removeEventListener("resize", checkIsDesktop);
   }, []);
 
-  // TODO: refactor a otro componente
   const renderButtons = (
     <div className={styles.actions}>
       <button className={styles.trailer}>Trailer</button>
@@ -59,20 +59,23 @@ export function MovieHero({ movie, withDescription }: MovieHeroProps) {
     return (
       <section className={`${styles.hero} ${styles.heroPlain}`}>
         <ProfilePhoto onSignOut={handleSignOut} />
+
         <CustomImage
-          src={movie.poster}
-          alt={movie.title}
+          src={currentMovie.poster}
+          alt={currentMovie.title}
           className={styles.image}
         />
+
         <div className={styles.overlay}>
-          <h1 className={styles.title}>{movie.title.toUpperCase()}</h1>
+          <h1 className={styles.title}>{currentMovie.title.toUpperCase()}</h1>
           <p className={styles.description}>
-            {movie.description || "Discover this story today."}
+            {currentMovie.description || "Discover this story today."}
           </p>
           <CustomButton type="primary">Discover</CustomButton>
         </div>
+
         <div className={styles.dots}>
-          {Array.from({ length: 4 }).map((_, i) => (
+          {movie.map((_, i) => (
             <span
               key={i}
               className={`${styles.dot} ${
@@ -85,12 +88,13 @@ export function MovieHero({ movie, withDescription }: MovieHeroProps) {
     );
   }
 
+  // No withDescription: solo mostrar el primero
   return (
     <>
       <section className={`${styles.hero} ${styles.heroPlain}`}>
         <CustomImage
-          src={movie.poster}
-          alt={movie.title}
+          src={movie[0].poster}
+          alt={movie[0].title}
           className={styles.image}
         />
         {isDesktop && renderButtons}

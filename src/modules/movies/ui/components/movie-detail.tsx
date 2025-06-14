@@ -26,7 +26,7 @@ export function MovieDetail({ movie }: MovieDetailProps) {
   return (
     <main className={styles.container}>
       {/* Hero */}
-      <MovieHero movie={movie} withDescription={false} />
+      <MovieHero movie={[movie]} withDescription={false} />
       <div className={styles.section}>
         {/* My List Button */}
         <div className={styles.myList}>

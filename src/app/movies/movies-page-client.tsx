@@ -12,13 +12,11 @@ import { Footer } from "@/shared/ui/components/footer";
 interface MoviesPageClientProps {
   genres: Genre[];
   movies: Movie[];
-  heroMovie: Movie;
 }
 
 export default function MoviesPageClient({
   genres,
   movies,
-  heroMovie,
 }: MoviesPageClientProps) {
   const [selectedGenreId, setSelectedGenreId] = useState<string>("");
   const [moviesByGenre, setMoviesByGenre] = useState<Record<string, Movie[]>>(
@@ -46,10 +44,12 @@ export default function MoviesPageClient({
     {}
   );
 
+  const highlightedMovies = movies.filter((movie) => movie.highlighted);
+
   return (
     <main className={styles.container}>
       {/* HERO */}
-      <MovieHero movie={heroMovie} withDescription />
+      <MovieHero movie={highlightedMovies} withDescription />
       {/* CATEGORY SELECTOR */}
       <div className={styles.categorySelector}>
         <button

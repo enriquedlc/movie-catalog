@@ -13,18 +13,9 @@ export default async function MoviesPage() {
     movieRepository.getAll(),
   ]);
 
-  console.log({ movies });
-
-  // TODO: refactor
-  const randomIndex = Math.floor(Math.random() * movies.length);
-
   return (
     <>
-      <MoviesPageClient
-        genres={genres}
-        movies={movies}
-        heroMovie={movies[randomIndex]}
-      />
+      <MoviesPageClient genres={genres} movies={movies} />
     </>
   );
 }
