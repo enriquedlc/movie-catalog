@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { Footer } from "@/shared/ui/components/footer";
+import { useState } from "react";
 import { Movie } from "../../domain/Movie";
 import styles from "./movie-detail.module.css";
+import { MovieHero } from "./movie-hero";
 
 interface MovieDetailProps {
   movie: Movie;
@@ -26,11 +27,7 @@ export function MovieDetail({ movie }: MovieDetailProps) {
     <main className={styles.container}>
       {/* Hero */}
       <section className={styles.hero}>
-        <img
-          className={styles.heroImage}
-          src={movie.poster}
-          alt={movie.title}
-        />
+        <MovieHero movie={movie} withDescription={false} />
         <div className={styles.actions}>
           <button className={styles.trailer}>Trailer</button>
           <button className={styles.play}>Play</button>

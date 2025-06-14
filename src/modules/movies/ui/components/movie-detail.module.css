@@ -9,7 +9,7 @@
 
 .heroImage {
   width: 100%;
-  height: auto;
+  min-height: 600px;
   display: block;
   object-fit: cover;
 }

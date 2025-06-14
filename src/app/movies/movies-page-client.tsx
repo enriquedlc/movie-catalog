@@ -49,7 +49,7 @@ export default function MoviesPageClient({
   return (
     <main className={styles.container}>
       {/* HERO */}
-      <MovieHero movie={heroMovie} />
+      <MovieHero movie={heroMovie} withDescription />
 
       {/* CATEGORY SELECTOR */}
       <div className={styles.categorySelector}>

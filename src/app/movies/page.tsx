@@ -16,9 +16,7 @@ export default async function MoviesPage() {
   console.log({ movies });
 
   // TODO: refactor
-  const movie = movies.find((m) =>
-    m.title.includes("the lord of the rings the return of the king")
-  );
+  const movie = movies.find((m) => m.title.includes("monster, INC."));
 
   return (
     <MoviesPageClient

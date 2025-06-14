@@ -1,8 +1,9 @@
 "use client";
 
+import { CustomImage } from "@/shared/ui/components/image";
+import Link from "next/link";
 import { Movie } from "../../domain/Movie";
 import styles from "./movie-card.module.css";
-import Link from "next/link";
 
 interface MovieCardProps {
   movie: Movie;
@@ -18,7 +19,7 @@ export function MovieCard({ movie, orientation = "vertical" }: MovieCardProps) {
 
   return (
     <Link href={`/movies/${movie.id}`} className={cardClassName}>
-      <img src={src} alt={movie.title} className={styles.image} />
+      <CustomImage src={src} alt={movie.title} className={styles.image} />
     </Link>
   );
 }
