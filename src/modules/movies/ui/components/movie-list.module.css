@@ -12,15 +12,5 @@
   display: flex;
   overflow-x: auto;
   padding-bottom: 0.5rem;
-  scrollbar-width: thin;
-  scroll-snap-type: x mandatory;
-}
-
-.horizontalScroll::-webkit-scrollbar {
-  height: 8px;
-}
-
-.horizontalScroll::-webkit-scrollbar-thumb {
-  background-color: #555;
-  border-radius: 4px;
+  scrollbar-width: none;
 }
