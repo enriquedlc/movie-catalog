@@ -26,6 +26,8 @@ export default function MoviesPageClient({
   );
   const [loading, setLoading] = useState(false);
 
+  console.log({ genres });
+
   useEffect(() => {
     if (!selectedGenreId) return;
 

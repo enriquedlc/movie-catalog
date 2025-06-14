@@ -31,14 +31,13 @@ export function MovieDetail({ movie }: MovieDetailProps) {
           src={movie.thumbnail}
           alt={movie.title}
         />
-      </section>
-
-      <div className={styles.section}>
         <div className={styles.actions}>
           <button className={styles.trailer}>Trailer</button>
           <button className={styles.play}>Play</button>
         </div>
+      </section>
 
+      <div className={styles.section}>
         {/* My List Button */}
         <div className={styles.myList}>
           <button onClick={toggleList} className={styles.listButton}>
