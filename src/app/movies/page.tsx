@@ -1,6 +1,6 @@
-import { createTokenRepositoryCookies } from "@/shared/token/infrastructure/token-repository-cookies";
 import { createGenreRepositoryApi } from "@/modules/movies/infrastructure/genre-repository-api";
 import { createMovieRepositoryApi } from "@/modules/movies/infrastructure/movie-repository-api";
+import { createTokenRepositoryCookies } from "@/shared/token/infrastructure/token-repository-cookies";
 import MoviesPageClient from "./movies-page-client";
 
 export default async function MoviesPage() {
@@ -19,10 +19,12 @@ export default async function MoviesPage() {
   const randomIndex = Math.floor(Math.random() * movies.length);
 
   return (
-    <MoviesPageClient
-      genres={genres}
-      movies={movies}
-      heroMovie={movies[randomIndex]}
-    />
+    <>
+      <MoviesPageClient
+        genres={genres}
+        movies={movies}
+        heroMovie={movies[randomIndex]}
+      />
+    </>
   );
 }

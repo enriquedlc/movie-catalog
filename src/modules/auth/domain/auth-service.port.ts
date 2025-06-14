@@ -7,4 +7,5 @@ export interface AuthServicePort {
     message: string;
     token?: string;
   }>;
+  signOut(): Promise<void>;
 }

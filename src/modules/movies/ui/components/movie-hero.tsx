@@ -1,9 +1,13 @@
 "use client";
 
+import { signOutAction } from "@/modules/auth/entrypoints/sign-out";
 import styles from "./movie-hero.module.css";
 import { Movie } from "@/modules/movies/domain/Movie";
 import { CustomImage } from "@/shared/ui/components/image";
+import { ProfilePhoto } from "@/shared/ui/components/profile-photo";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/dist/client/components/navigation";
+import { CustomButton } from "@/shared/ui/components/button";
 
 interface MovieHeroProps {
   movie: Movie;
@@ -13,6 +17,7 @@ interface MovieHeroProps {
 export function MovieHero({ movie, withDescription }: MovieHeroProps) {
   const [isDesktop, setIsDesktop] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     if (!withDescription) return;
@@ -45,9 +50,15 @@ export function MovieHero({ movie, withDescription }: MovieHeroProps) {
     </div>
   );
 
+  const handleSignOut = async () => {
+    await signOutAction();
+    router.push("/login");
+  };
+
   if (withDescription) {
     return (
       <section className={`${styles.hero} ${styles.heroPlain}`}>
+        <ProfilePhoto onSignOut={handleSignOut} />
         <CustomImage
           src={movie.poster}
           alt={movie.title}
@@ -58,7 +69,7 @@ export function MovieHero({ movie, withDescription }: MovieHeroProps) {
           <p className={styles.description}>
             {movie.description || "Discover this story today."}
           </p>
-          <button className={styles.button}>Discover</button>
+          <CustomButton type="primary">Discover</CustomButton>
         </div>
         <div className={styles.dots}>
           {Array.from({ length: 4 }).map((_, i) => (

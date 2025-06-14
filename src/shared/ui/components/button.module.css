@@ -1,0 +1,41 @@
+.button {
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Variantes */
+.primary {
+  background-color: #751b5c;
+  width: 343px;
+  height: 57px;
+  color: white;
+  font-weight: 400;
+  font-size: 24px;
+}
+
+.secondary {
+  background-color: #ffffff;
+  width: 343px;
+  height: 57px;
+  color: #000000;
+  font-weight: 400;
+  font-size: 24px;
+}
+
+.primary:hover {
+  background-color: #961aa2;
+}
+
+.secondary:hover {
+  background-color: #f0f0f0;
+}
+
+@media (max-width: 1023px) {
+  .primary,
+  .secondary {
+    width: 200px;
+    height: 40px;
+  }
+}

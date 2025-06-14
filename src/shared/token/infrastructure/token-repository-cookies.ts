@@ -22,8 +22,14 @@ export function createTokenRepositoryCookies(): TokenRepository {
     });
   }
 
+  async function remove(): Promise<void> {
+    const cookieStore = await cookies();
+    cookieStore.delete(JWT_COOKIE_NAME);
+  }
+
   return {
     get,
     set,
+    remove,
   };
 }

@@ -15,8 +15,6 @@ export default async function MoviePage(props: MoviePageProps) {
   const movieRepo = createMovieRepositoryApi(tokenRepo);
   const genreRepo = createGenreRepositoryApi(tokenRepo);
 
-  console.log({ params });
-
   const movie = await movieRepo.getById(params.id);
 
   if (!movie) {

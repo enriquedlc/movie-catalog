@@ -29,4 +29,16 @@ export class AuthApiService implements AuthServicePort {
       };
     }
   }
+
+  async signOut() {
+    try {
+      await axios.post("https://kata.conducerevel.com/films/auth/sign-out");
+      return;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data?.message ?? "Error signing out");
+      }
+      throw new Error("Error signing out");
+    }
+  }
 }
