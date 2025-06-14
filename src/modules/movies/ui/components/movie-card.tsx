@@ -1,5 +1,8 @@
+"use client";
+
 import { Movie } from "../../domain/Movie";
 import styles from "./movie-card.module.css";
+import Link from "next/link";
 
 interface MovieCardProps {
   movie: Movie;
@@ -12,8 +15,8 @@ export function MovieCard({ movie, orientation = "vertical" }: MovieCardProps) {
   }`;
 
   return (
-    <div className={cardClassName}>
+    <Link href={`/movies/${movie.id}`} className={cardClassName}>
       <img src={movie.thumbnail} alt={movie.title} className={styles.image} />
-    </div>
+    </Link>
   );
 }

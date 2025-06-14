@@ -1,0 +1,139 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.heroImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.section {
+  padding-inline: 1rem;
+  padding-block: 1.5rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.trailer,
+.play {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.trailer {
+  background-color: white;
+  color: black;
+}
+
+.play {
+  background-color: #7b197f;
+  color: white;
+}
+
+.meta {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  color: white;
+}
+
+.meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+
+.meta p {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.meta strong {
+  font-weight: bold;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  color: white;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-inline: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding-inline: 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .section {
+    padding-inline: 4rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .actions {
+    flex-direction: row;
+  }
+}
+
+.star {
+  color: orange;
+  font-size: 1rem;
+  margin-right: 0.1rem;
+}
+
+.label {
+  font-weight: bold;
+  margin-right: 0.3rem;
+}
+
+.myList {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.listIcon {
+  font-size: 1.5rem;
+  color: #a020f0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.listText {
+  font-size: 0.875rem;
+  color: white;
+}

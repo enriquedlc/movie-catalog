@@ -7,6 +7,7 @@ import { Movie } from "@/modules/movies/domain/Movie";
 import { MovieList } from "@/modules/movies/ui/components/movie-list";
 import { MovieHero } from "@/modules/movies/ui/components/movie-hero";
 import styles from "./movies-page.module.css";
+import { Footer } from "@/shared/ui/components/footer";
 
 interface MoviesPageClientProps {
   genres: Genre[];
@@ -98,6 +99,8 @@ export default function MoviesPageClient({
         orientation="horizontal"
         isLoading={false}
       />
+
+      <Footer />
     </main>
   );
 }
