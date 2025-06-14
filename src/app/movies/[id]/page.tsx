@@ -6,10 +6,11 @@ import { createGenreRepositoryApi } from "@/modules/movies/infrastructure/genre-
 import { Movie } from "@/modules/movies/domain/Movie";
 
 interface MoviePageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export default async function MoviePage({ params }: MoviePageProps) {
+export default async function MoviePage(props: MoviePageProps) {
+  const params = await props.params;
   const tokenRepo = createTokenRepositoryCookies();
   const movieRepo = createMovieRepositoryApi(tokenRepo);
   const genreRepo = createGenreRepositoryApi(tokenRepo);

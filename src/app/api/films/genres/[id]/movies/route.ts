@@ -4,9 +4,9 @@ import { createTokenRepositoryCookies } from "@/shared/token/infrastructure/toke
 
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  const id = context.params.id;
+  const id = (await context.params).id;
 
   const tokenRepository = createTokenRepositoryCookies();
   const token = await tokenRepository.get();
