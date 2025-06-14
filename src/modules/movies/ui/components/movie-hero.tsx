@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { signOutAction } from "@/modules/auth/entrypoints/sign-out";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { Movie } from "@/modules/movies/domain/Movie";
-import { CustomImage } from "@/shared/ui/components/image";
-import { ProfilePhoto } from "@/shared/ui/components/profile-photo";
 import { CustomButton } from "@/shared/ui/components/button";
+import { ProfilePhoto } from "@/shared/ui/components/profile-photo";
 
+import Image from "next/image";
 import styles from "./movie-hero.module.css";
 
 interface MovieHeroProps {
@@ -59,13 +59,12 @@ export function MovieHero({ movie, withDescription }: MovieHeroProps) {
     return (
       <section className={`${styles.hero} ${styles.heroPlain}`}>
         <ProfilePhoto onSignOut={handleSignOut} />
-
-        <CustomImage
+        <Image
           src={currentMovie.poster}
           alt={currentMovie.title}
+          fill
           className={styles.image}
         />
-
         <div className={styles.overlay}>
           <h1 className={styles.title}>{currentMovie.title.toUpperCase()}</h1>
           <p className={styles.description}>
@@ -88,13 +87,13 @@ export function MovieHero({ movie, withDescription }: MovieHeroProps) {
     );
   }
 
-  // No withDescription: solo mostrar el primero
   return (
     <>
       <section className={`${styles.hero} ${styles.heroPlain}`}>
-        <CustomImage
-          src={movie[0].poster}
-          alt={movie[0].title}
+        <Image
+          src={currentMovie.poster}
+          alt={currentMovie.title}
+          fill
           className={styles.image}
         />
         {isDesktop && renderButtons}

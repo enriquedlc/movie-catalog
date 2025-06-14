@@ -1,0 +1,17 @@
+.categorySelector {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-block: 1rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.categorySelector::-webkit-scrollbar {
+  display: none;
+}
+
+.selectedButton {
+  background-color: var(--primary-color);
+  color: white;
+}

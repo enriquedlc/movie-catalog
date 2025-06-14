@@ -8,6 +8,7 @@ import { MovieList } from "@/modules/movies/ui/components/movie-list";
 import { MovieHero } from "@/modules/movies/ui/components/movie-hero";
 import styles from "./movies-page.module.css";
 import { Footer } from "@/shared/ui/components/footer";
+import { CategorySelector } from "@/shared/ui/components/category-selector";
 
 interface MoviesPageClientProps {
   genres: Genre[];
@@ -51,25 +52,11 @@ export default function MoviesPageClient({
       {/* HERO */}
       <MovieHero movie={highlightedMovies} withDescription />
       {/* CATEGORY SELECTOR */}
-      <div className={styles.categorySelector}>
-        <button
-          onClick={() => setSelectedGenreId("")}
-          className={selectedGenreId === "" ? styles.selectedButton : undefined}
-        >
-          Todas
-        </button>
-        {genres.map((genre) => (
-          <button
-            key={genre.id}
-            onClick={() => setSelectedGenreId(genre.id)}
-            className={
-              selectedGenreId === genre.id ? styles.selectedButton : undefined
-            }
-          >
-            {genre.name}
-          </button>
-        ))}
-      </div>
+      <CategorySelector
+        genres={genres}
+        selectedGenreId={selectedGenreId}
+        setSelectedGenreId={setSelectedGenreId}
+      />
 
       {/* MOVIES */}
       {selectedGenreId ? (
