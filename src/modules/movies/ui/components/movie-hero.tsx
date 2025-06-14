@@ -8,7 +8,7 @@ interface Props {
 export function MovieHero({ movie }: Props) {
   return (
     <section className={styles.hero}>
-      <img src={movie.thumbnail} alt={movie.title} className={styles.image} />
+      <img src={movie.poster} alt={movie.title} className={styles.image} />
       <div className={styles.overlay}>
         <h1 className={styles.title}>{movie.title.toUpperCase()}</h1>
         <p className={styles.description}>

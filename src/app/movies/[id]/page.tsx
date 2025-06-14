@@ -14,18 +14,21 @@ export default async function MoviePage({ params }: MoviePageProps) {
   const movieRepo = createMovieRepositoryApi(tokenRepo);
   const genreRepo = createGenreRepositoryApi(tokenRepo);
 
-  const [movie, genres] = await Promise.all([
-    movieRepo.getById(params.id),
-    genreRepo.getAll(),
-  ]);
+  const movie = await movieRepo.getById(params.id);
 
   if (!movie) {
     notFound();
   }
 
+  const genre = await genreRepo.getById(movie.genre);
+
+  if (!genre) {
+    notFound();
+  }
+
   const movieWithGenre: Movie = {
     ...movie,
-    genre: genres.find((genre) => genre.id === movie?.genre)?.name ?? "Unknown",
+    genre: genre.name,
   };
 
   return <MovieDetail movie={movieWithGenre} />;

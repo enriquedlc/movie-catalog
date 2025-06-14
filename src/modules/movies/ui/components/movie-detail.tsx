@@ -28,7 +28,7 @@ export function MovieDetail({ movie }: MovieDetailProps) {
       <section className={styles.hero}>
         <img
           className={styles.heroImage}
-          src={movie.thumbnail}
+          src={movie.poster}
           alt={movie.title}
         />
         <div className={styles.actions}>

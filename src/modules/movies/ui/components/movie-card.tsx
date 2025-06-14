@@ -14,9 +14,11 @@ export function MovieCard({ movie, orientation = "vertical" }: MovieCardProps) {
     orientation === "horizontal" ? styles.horizontal : styles.vertical
   }`;
 
+  const src = orientation === "horizontal" ? movie.poster : movie.thumbnail;
+
   return (
     <Link href={`/movies/${movie.id}`} className={cardClassName}>
-      <img src={movie.thumbnail} alt={movie.title} className={styles.image} />
+      <img src={src} alt={movie.title} className={styles.image} />
     </Link>
   );
 }

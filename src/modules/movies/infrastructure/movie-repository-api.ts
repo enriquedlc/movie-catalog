@@ -51,8 +51,28 @@ export function createMovieRepositoryApi(
     }
   }
 
+  async function getFavorites(): Promise<Movie[]> {
+    const token = await tokenRepository.get();
+
+    if (!token) {
+      throw new Error("No token available");
+    }
+
+    const response = await axios.get<Movie[]>(
+      `https://kata.conducerevel.com/films/favorites`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  }
+
   return {
     getAll,
     getById,
+    getFavorites,
   };
 }
