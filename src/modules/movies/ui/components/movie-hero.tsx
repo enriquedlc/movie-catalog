@@ -31,7 +31,11 @@ export function MovieHero({ movie, withDescription }: MovieHeroProps) {
         </section>
       ) : (
         <section className={styles.hero}>
-          <MovieHero movie={movie} withDescription={false} />
+          <CustomImage
+            src={movie.poster}
+            alt={movie.title}
+            className={styles.image}
+          />
 
           <div className={styles.actions}>
             <button className={styles.trailer}>Trailer</button>
