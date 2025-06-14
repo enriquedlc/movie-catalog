@@ -26,14 +26,7 @@ export function MovieDetail({ movie }: MovieDetailProps) {
   return (
     <main className={styles.container}>
       {/* Hero */}
-      <section className={styles.hero}>
-        <MovieHero movie={movie} withDescription={false} />
-        <div className={styles.actions}>
-          <button className={styles.trailer}>Trailer</button>
-          <button className={styles.play}>Play</button>
-        </div>
-      </section>
-
+      <MovieHero movie={movie} withDescription={false} />
       <div className={styles.section}>
         {/* My List Button */}
         <div className={styles.myList}>
@@ -58,7 +51,7 @@ export function MovieDetail({ movie }: MovieDetailProps) {
         </div>
 
         <section className={styles.description}>
-          <h1 className={styles.title}>{movie.title}</h1>
+          <h1 className={styles.title}>{movie.title.toLocaleUpperCase()}</h1>
           <p className={styles.text}>{movie.description}</p>
         </section>
       </div>

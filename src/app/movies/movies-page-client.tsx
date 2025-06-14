@@ -50,7 +50,6 @@ export default function MoviesPageClient({
     <main className={styles.container}>
       {/* HERO */}
       <MovieHero movie={heroMovie} withDescription />
-
       {/* CATEGORY SELECTOR */}
       <div className={styles.categorySelector}>
         <button

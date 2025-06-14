@@ -3,54 +3,10 @@
   flex-direction: column;
 }
 
-.hero {
-  position: relative;
-}
-
-.heroImage {
-  width: 100%;
-  min-height: 600px;
-  display: block;
-  object-fit: cover;
-}
-
 .section {
   padding-inline: 1rem;
-  padding-block: 1.5rem;
   max-width: 1200px;
   width: 100%;
-  margin: 0 auto;
-}
-
-.actions {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  z-index: 10;
-}
-
-.trailer,
-.play {
-  padding: 0.75rem 2rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.trailer {
-  background-color: white;
-  color: black;
-}
-
-.play {
-  background-color: #7b197f;
-  color: white;
 }
 
 .meta {
@@ -105,12 +61,13 @@
 
 @media (min-width: 1024px) {
   .section {
-    padding-inline: 3rem;
+    padding-block: 2rem;
   }
 }
 
 @media (min-width: 1280px) {
   .section {
+    padding-block: 2rem;
     padding-inline: 4rem;
   }
 }
@@ -136,7 +93,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 1rem 0;
 }
 
 .listButton {
@@ -160,51 +116,4 @@
 
 .text {
   margin-top: 0.25rem;
-}
-
-/* ===== MOBILE ===== */
-@media (max-width: 767px) {
-  .actions {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 1rem auto;
-    position: static;
-    width: inherit;
-    width: 95%;
-  }
-
-  .actions button {
-    width: 100%;
-  }
-}
-
-/* ===== TABLET ===== */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .actions {
-    flex-direction: column;
-    justify-content: flex-start;
-    margin: 1rem 1rem 0;
-    width: 45%;
-    position: static;
-  }
-
-  .actions button {
-    width: auto;
-  }
-}
-
-/* ===== DESKTOP ===== */
-@media (min-width: 1024px) {
-  .actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1.5rem;
-    width: 70%;
-    left: 15rem;
-  }
-
-  .actions button {
-    flex: 0 0 35%;
-  }
 }
