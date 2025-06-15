@@ -1,8 +1,10 @@
 "use client";
 
-import { CustomImage } from "@/shared/ui/components/image";
 import Link from "next/link";
+
+import { CustomImage } from "@/shared/ui/components/image";
 import { Movie } from "../../domain/Movie";
+
 import styles from "./movie-card.module.css";
 
 interface MovieCardProps {

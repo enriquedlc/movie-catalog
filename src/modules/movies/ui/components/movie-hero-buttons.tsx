@@ -1,4 +1,5 @@
 import { CustomButton } from "@/shared/ui/components/button";
+
 import styles from "./movie-hero-buttons.module.css";
 
 export function MovieHeroButtons() {

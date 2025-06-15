@@ -2,9 +2,10 @@
 
 import { Footer } from "@/shared/ui/components/footer";
 import { Movie } from "../../domain/Movie";
-import styles from "./movie-detail.module.css";
 import { MovieHero } from "./movie-hero";
 import { MovieInfo } from "./movie-info";
+
+import styles from "./movie-detail.module.css";
 
 interface MovieDetailProps {
   movie: Movie;
