@@ -7,10 +7,10 @@ import { Genre } from "@/modules/movies/domain/Genre";
 import { Movie } from "@/modules/movies/domain/Movie";
 import { MovieHero } from "@/modules/movies/ui/components/movie-hero";
 import { MovieList } from "@/modules/movies/ui/components/movie-list";
-import { CategorySelector } from "@/shared/ui/components/category-selector";
 import { Footer } from "@/shared/ui/components/footer";
 
 import styles from "./movies-page.module.css";
+import { CategorySelector } from "../components/category-selector";
 
 interface MoviesPageClientProps {
   genres: Genre[];
