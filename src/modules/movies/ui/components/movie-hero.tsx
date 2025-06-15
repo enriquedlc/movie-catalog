@@ -9,9 +9,8 @@ import { CustomButton } from "@/shared/ui/components/button";
 import { ProfilePhoto } from "@/shared/ui/components/profile-photo";
 
 import Image from "next/image";
-import styles from "./movie-hero.module.css";
 import { MovieHeroButtons } from "./movie-hero-buttons";
-import Link from "next/link";
+import styles from "./movie-hero.module.css";
 
 interface MovieHeroProps {
   movies: Movie[];

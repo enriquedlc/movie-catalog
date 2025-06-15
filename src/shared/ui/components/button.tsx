@@ -23,7 +23,6 @@ export function CustomButton({
   const buttonClass = `${styles.button} ${typeClass} ${className}`.trim();
 
   if (type === "link") {
-    console.log("aaaaaaaaaaa");
     return (
       <Link href={href} className={buttonClass}>
         <button className={buttonClass}>{children}</button>
