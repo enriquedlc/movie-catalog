@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import axios from "axios";
+
+import { createMovieRepositoryApi } from "@/modules/movies/infrastructure/movie-repository-api";
 import { createTokenRepositoryCookies } from "@/shared/token/infrastructure/token-repository-cookies";
 
 export async function GET(
@@ -9,20 +10,16 @@ export async function GET(
   const id = (await context.params).id;
 
   const tokenRepository = createTokenRepositoryCookies();
-  const token = await tokenRepository.get();
+  const movieRepository = createMovieRepositoryApi(tokenRepository);
 
-  if (!token) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const response = await movieRepository.getByGenre(id);
+
+  if (!response) {
+    return NextResponse.json(
+      { error: "No movies found for this genre" },
+      { status: 404 }
+    );
   }
 
-  const response = await axios.get(
-    `https://kata.conducerevel.com/films/genres/${id}/movies`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-
-  return NextResponse.json(response.data);
+  return NextResponse.json(response);
 }

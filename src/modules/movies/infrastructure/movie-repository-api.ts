@@ -122,11 +122,36 @@ export function createMovieRepositoryApi(
     }
   }
 
+  async function getByGenre(genreId: string): Promise<Movie[] | null> {
+    const token = await tokenRepository.get();
+    if (!token) {
+      return null;
+    }
+
+    try {
+      const response = await axios.get<Movie[]>(
+        `${API_BASE_URL}/genres/${genreId}/movies`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 404) {
+        return null;
+      }
+      throw error;
+    }
+  }
+
   return {
     getAll,
     getById,
     getUserList,
     addToUserList,
     removeFromUserList,
+    getByGenre,
   };
 }
