@@ -1,25 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { createMovieRepositoryApi } from "@/modules/movies/infrastructure/movie-repository-api";
-import { createTokenRepositoryCookies } from "@/shared/token/infrastructure/token-repository-cookies";
+import { getMoviesByGenre } from "@/modules/movies/entrypoints/get-movies-by-genre";
+import { handleApiError } from "@/shared/utils/handle-api-error";
 
 export async function GET(
   request: NextRequest,
-  context: { params: Promise<{ id: string }> }
+  context: { params: { id: string } }
 ) {
-  const id = (await context.params).id;
+  const { id } = context.params;
 
-  const tokenRepository = createTokenRepositoryCookies();
-  const movieRepository = createMovieRepositoryApi(tokenRepository);
-
-  const response = await movieRepository.getByGenre(id);
-
-  if (!response) {
-    return NextResponse.json(
-      { error: "No movies found for this genre" },
-      { status: 404 }
-    );
+  try {
+    const movies = await getMoviesByGenre(id);
+    return NextResponse.json(movies);
+  } catch (error) {
+    return handleApiError(error);
   }
-
-  return NextResponse.json(response);
 }

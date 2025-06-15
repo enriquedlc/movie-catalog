@@ -1,6 +1,6 @@
 import { Genre } from "./Genre";
 
 export interface GenreRepository {
-  getAll(): Promise<Genre[] | null>;
-  getById(id: string): Promise<Genre | null>;
+  getAll(): Promise<Genre[]>;
+  getById(id: string): Promise<Genre>;
 }
