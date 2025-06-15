@@ -1,0 +1,11 @@
+.metaStars {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.star {
+  color: orange;
+  font-size: 1rem;
+  margin-right: 0.1rem;
+}

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Movie } from "../../domain/Movie";
 import styles from "./movie-info.module.css";
+import { Rating } from "./rating";
 
 interface MovieInfoProps {
   movie: Movie;
@@ -12,14 +13,6 @@ export function MovieInfo({ movie }: MovieInfoProps) {
   const [inList, setInList] = useState(false);
 
   const toggleList = () => setInList((prev) => !prev);
-
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <span key={i} className={styles.star}>
-        {i < rating ? "★" : "☆"}
-      </span>
-    ));
-  };
 
   return (
     <>
@@ -33,9 +26,7 @@ export function MovieInfo({ movie }: MovieInfoProps) {
       </section>
 
       <section className={styles.meta}>
-        <p className={styles.metaStars}>
-          <strong>Rating:</strong> {renderStars(movie.rating)}
-        </p>
+        <Rating rating={movie.rating} />
         <p>
           <strong>Cast:</strong> {movie.cast}
         </p>

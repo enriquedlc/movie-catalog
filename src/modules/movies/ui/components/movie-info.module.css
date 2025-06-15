@@ -25,6 +25,82 @@
   font-weight: 700;
 }
 
+.meta {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  color: white;
+}
+
+.meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+
+.meta p {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.meta strong {
+  font-weight: bold;
+}
+
+.title {
+  font-family: var(--font-condensed);
+  font-size: 54;
+  line-height: 60px;
+  font-weight: 700;
+  color: white;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 76;
+    line-height: 60px;
+  }
+  .section {
+    padding-inline: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    font-size: 128px;
+    line-height: 130px;
+  }
+  .section {
+    padding-block: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .title {
+    font-size: 128px;
+    line-height: 130px;
+  }
+  .section {
+    padding-block: 2rem;
+    padding-inline: 4rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .actions {
+    flex-direction: row;
+  }
+}
+
+.label {
+  font-weight: bold;
+  margin-right: 0.3rem;
+}
+
 .textDescription {
   font-size: 24px;
   font-weight: 400;
