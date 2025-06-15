@@ -1,9 +1,7 @@
-import { redirect } from "next/navigation";
-
 import { createGenreRepositoryApi } from "@/modules/movies/infrastructure/genre-repository-api";
 import { createMovieRepositoryApi } from "@/modules/movies/infrastructure/movie-repository-api";
 import MoviesPageClient from "@/modules/movies/ui/views/movies-page-client";
-import { UnauthorizedError } from "@/shared/errors/app-errors";
+import { handleAppError } from "@/shared/errors/handle-app-error";
 import { createTokenRepositoryCookies } from "@/shared/token/infrastructure/token-repository-cookies";
 
 export default async function MoviesPage() {
@@ -16,10 +14,6 @@ export default async function MoviesPage() {
     const genres = await genreRepo.getAll();
     return <MoviesPageClient movies={movies} genres={genres} />;
   } catch (error) {
-    if (error instanceof UnauthorizedError) {
-      redirect("/login");
-    }
-
-    throw error;
+    handleAppError(error);
   }
 }
