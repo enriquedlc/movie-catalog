@@ -26,7 +26,7 @@ export function ProfilePhoto({ onSignOut }: ProfilePhotoProps) {
         style={{ cursor: "pointer" }}
       />
       {showButton && (
-        <CustomButton type="primary" onClick={onSignOut}>
+        <CustomButton color="primary" onClick={onSignOut}>
           Sign out
         </CustomButton>
       )}

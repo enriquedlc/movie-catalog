@@ -11,6 +11,7 @@ import { ProfilePhoto } from "@/shared/ui/components/profile-photo";
 import Image from "next/image";
 import styles from "./movie-hero.module.css";
 import { MovieHeroButtons } from "./movie-hero-buttons";
+import Link from "next/link";
 
 interface MovieHeroProps {
   movies: Movie[];
@@ -64,7 +65,13 @@ export function MovieHero({ movies, withDescription }: MovieHeroProps) {
           <p className={styles.description}>
             {currentMovie.description || "Discover this story today."}
           </p>
-          <CustomButton type="primary">Discover</CustomButton>
+          <CustomButton
+            type="link"
+            href={`/movies/${currentMovie.id}`}
+            color="primary"
+          >
+            Discover
+          </CustomButton>
         </div>
 
         <div className={styles.dots}>

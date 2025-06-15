@@ -18,7 +18,7 @@ export function CategorySelector({
   return (
     <div className={styles.categorySelector}>
       <CustomButton
-        type="tertiary"
+        color="tertiary"
         className={selectedGenreId === "" ? styles.selectedButton : ""}
         onClick={() => setSelectedGenreId("")}
       >
@@ -28,7 +28,7 @@ export function CategorySelector({
       {genres.map((genre) => (
         <CustomButton
           key={genre.id}
-          type="tertiary"
+          color="tertiary"
           className={selectedGenreId === genre.id ? styles.selectedButton : ""}
           onClick={() => setSelectedGenreId(genre.id)}
         >
