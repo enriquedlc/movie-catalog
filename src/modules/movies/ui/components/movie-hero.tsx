@@ -90,6 +90,7 @@ export function MovieHero({ movies, withDescription }: MovieHeroProps) {
   return (
     <>
       <section className={`${styles.hero} ${styles.heroPlain}`}>
+        <ProfilePhoto onSignOut={handleSignOut} />
         <Image
           src={currentMovie.poster}
           alt={currentMovie.title}
