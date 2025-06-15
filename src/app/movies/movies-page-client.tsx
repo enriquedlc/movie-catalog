@@ -86,9 +86,8 @@ export default function MoviesPageClient({
           orientation="horizontal"
           isLoading={false}
         />
-
-        <Footer />
       </section>
+      <Footer />
     </>
   );
 }
