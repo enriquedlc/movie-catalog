@@ -7,17 +7,17 @@ import { Movie } from "@/modules/movies/domain/Movie";
 import { MovieList } from "@/modules/movies/ui/components/movie-list";
 import { MovieHero } from "@/modules/movies/ui/components/movie-hero";
 import styles from "./movies-page.module.css";
+import { Footer } from "@/shared/ui/components/footer";
+import { CategorySelector } from "@/shared/ui/components/category-selector";
 
 interface MoviesPageClientProps {
   genres: Genre[];
   movies: Movie[];
-  heroMovie: Movie;
 }
 
 export default function MoviesPageClient({
   genres,
   movies,
-  heroMovie,
 }: MoviesPageClientProps) {
   const [selectedGenreId, setSelectedGenreId] = useState<string>("");
   const [moviesByGenre, setMoviesByGenre] = useState<Record<string, Movie[]>>(
@@ -45,59 +45,49 @@ export default function MoviesPageClient({
     {}
   );
 
+  const highlightedMovies = movies.filter((movie) => movie.highlighted);
+
   return (
-    <main className={styles.container}>
+    <>
       {/* HERO */}
-      <MovieHero movie={heroMovie} />
-
-      {/* CATEGORY SELECTOR */}
-      <div className={styles.categorySelector}>
-        <button
-          onClick={() => setSelectedGenreId("")}
-          className={selectedGenreId === "" ? styles.selectedButton : undefined}
-        >
-          Todas
-        </button>
-        {genres.map((genre) => (
-          <button
-            key={genre.id}
-            onClick={() => setSelectedGenreId(genre.id)}
-            className={
-              selectedGenreId === genre.id ? styles.selectedButton : undefined
-            }
-          >
-            {genre.name}
-          </button>
-        ))}
-      </div>
-
-      {/* MOVIES */}
-      {selectedGenreId ? (
-        <MovieList
-          title={
-            genres.find((g) => g.id === selectedGenreId)?.name || "Unknown"
-          }
-          movies={moviesByGenre[selectedGenreId] || []}
-          isLoading={loading}
+      <MovieHero movies={highlightedMovies} withDescription />
+      <section className={styles.container}>
+        {/* CATEGORY SELECTOR */}
+        <CategorySelector
+          genres={genres}
+          selectedGenreId={selectedGenreId}
+          setSelectedGenreId={setSelectedGenreId}
         />
-      ) : (
-        genres.map((genre) => (
-          <MovieList
-            key={genre.id}
-            title={genre.name}
-            movies={moviesGroupedByGenre[genre.id] || []}
-            isLoading={false}
-          />
-        ))
-      )}
 
-      {/* COMING SOON */}
-      <MovieList
-        title="Coming Soon"
-        movies={movies}
-        orientation="horizontal"
-        isLoading={false}
-      />
-    </main>
+        {/* MOVIES */}
+        {selectedGenreId ? (
+          <MovieList
+            title={
+              genres.find((g) => g.id === selectedGenreId)?.name || "Unknown"
+            }
+            movies={moviesByGenre[selectedGenreId] || []}
+            isLoading={loading}
+          />
+        ) : (
+          genres.map((genre) => (
+            <MovieList
+              key={genre.id}
+              title={genre.name}
+              movies={moviesGroupedByGenre[genre.id] || []}
+              isLoading={false}
+            />
+          ))
+        )}
+
+        {/* COMING SOON */}
+        <MovieList
+          title="Coming Soon"
+          movies={movies}
+          orientation="horizontal"
+          isLoading={false}
+        />
+      </section>
+      <Footer />
+    </>
   );
 }

@@ -18,10 +18,10 @@ export function MovieList({
 }: MovieListProps) {
   return (
     <section className={styles.section}>
-      <h2 className={styles.genreTitle}>{title}</h2>
+      <p className={styles.genreTitle}>{title}</p>
       <div className={styles.horizontalScroll}>
         {isLoading
-          ? Array.from({ length: 5 }).map((_, i) => (
+          ? Array.from({ length: 20 }).map((_, i) => (
               <MovieCardSkeleton key={i} orientation={orientation} />
             ))
           : movies.map((movie) => (

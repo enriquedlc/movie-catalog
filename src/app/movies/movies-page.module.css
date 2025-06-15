@@ -1,68 +1,19 @@
 .container {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding-block: 1rem;
+  padding-inline-start: 1rem;
 }
 
-/* HERO */
-.hero {
-  position: relative;
-  background-image: url("/the-last-of-us.jpg");
-  background-size: cover;
-  background-position: center;
-  border-radius: 1rem;
-  overflow: hidden;
-  color: white;
-  padding: 2rem 1rem;
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    padding-inline-start: 2rem;
+    padding-block: 3rem;
+  }
 }
 
-.heroContent {
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.8), transparent);
-  max-width: 500px;
-}
-
-.heroTitle {
-  font-size: clamp(2rem, 6vw, 4rem);
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-
-.heroDescription {
-  margin-bottom: 1rem;
-  font-size: clamp(1rem, 3vw, 1.25rem);
-}
-
-.heroButton {
-  background-color: #a933c4;
-  color: white;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 0.5rem;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.heroButton:hover {
-  background-color: #911aae;
-}
-
-/* CATEGORY SELECTOR (placeholder) */
-.categorySelector {
-  display: flex;
-  gap: 0.5rem;
-  margin: 1rem 0;
-  flex-wrap: wrap;
-}
-
-.categorySelector button {
-  padding: 0.5rem 1rem;
-  background-color: #333;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-}
-
-.categorySelector button:hover {
-  background-color: #555;
+@media (min-width: 1024px) {
+  .container {
+    padding-inline-start: 7.5rem;
+  }
 }

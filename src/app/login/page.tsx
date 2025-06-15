@@ -13,7 +13,6 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = await signInAction(email, password);
-    console.log({ result });
     if (!result.success) {
       alert(result.message);
       return;

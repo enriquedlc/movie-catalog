@@ -6,8 +6,8 @@ const JWT_COOKIE_NAME = "jwt";
 
 export function createTokenRepositoryCookies(): TokenRepository {
   async function get(): Promise<string | null> {
-    const cookieStore = cookies();
-    const token = (await cookieStore).get(JWT_COOKIE_NAME);
+    const cookieStore = await cookies();
+    const token = cookieStore.get(JWT_COOKIE_NAME);
     return token?.value ?? null;
   }
 
@@ -22,8 +22,14 @@ export function createTokenRepositoryCookies(): TokenRepository {
     });
   }
 
+  async function remove(): Promise<void> {
+    const cookieStore = await cookies();
+    cookieStore.delete(JWT_COOKIE_NAME);
+  }
+
   return {
     get,
     set,
+    remove,
   };
 }

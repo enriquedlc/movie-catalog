@@ -1,6 +1,6 @@
-import { createTokenRepositoryCookies } from "@/shared/token/infrastructure/token-repository-cookies";
 import { createGenreRepositoryApi } from "@/modules/movies/infrastructure/genre-repository-api";
 import { createMovieRepositoryApi } from "@/modules/movies/infrastructure/movie-repository-api";
+import { createTokenRepositoryCookies } from "@/shared/token/infrastructure/token-repository-cookies";
 import MoviesPageClient from "./movies-page-client";
 
 export default async function MoviesPage() {
@@ -13,18 +13,9 @@ export default async function MoviesPage() {
     movieRepository.getAll(),
   ]);
 
-  console.log({ genres, movies });
-
-  // TODO: refactor
-  const movie = movies.find((m) =>
-    m.title.includes("the lord of the rings the return of the king")
-  );
-
   return (
-    <MoviesPageClient
-      genres={genres}
-      movies={movies}
-      heroMovie={movie ?? movies[0]}
-    />
+    <>
+      <MoviesPageClient genres={genres} movies={movies} />
+    </>
   );
 }

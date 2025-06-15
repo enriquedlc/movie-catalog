@@ -1,0 +1,14 @@
+.container {
+  position: absolute;
+  top: 7px;
+  right: 0.9rem;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.avatar {
+  border-radius: 9999px;
+}

@@ -1,9 +1,10 @@
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 const protectedRoutes = ["/movies"];
 
-export function middleware(request: NextRequest) {
-  const jwt = request.cookies.get("jwt")?.value;
+export async function middleware(request: NextRequest) {
+  const jwt = (await cookies()).get("jwt")?.value;
 
   const isProtected = protectedRoutes.some((route) =>
     request.nextUrl.pathname.startsWith(route)
@@ -17,5 +18,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/movies/:path*", "/"],
+  matcher: ["/((?!_next|api|favicon.ico).*)"],
 };

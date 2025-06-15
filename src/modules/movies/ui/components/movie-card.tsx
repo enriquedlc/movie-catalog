@@ -1,3 +1,7 @@
+"use client";
+
+import { CustomImage } from "@/shared/ui/components/image";
+import Link from "next/link";
 import { Movie } from "../../domain/Movie";
 import styles from "./movie-card.module.css";
 
@@ -11,9 +15,11 @@ export function MovieCard({ movie, orientation = "vertical" }: MovieCardProps) {
     orientation === "horizontal" ? styles.horizontal : styles.vertical
   }`;
 
+  const src = orientation === "horizontal" ? movie.poster : movie.thumbnail;
+
   return (
-    <div className={cardClassName}>
-      <img src={movie.thumbnail} alt={movie.title} className={styles.image} />
-    </div>
+    <Link href={`/movies/${movie.id}`} className={cardClassName}>
+      <CustomImage src={src} alt={movie.title} className={styles.image} />
+    </Link>
   );
 }
