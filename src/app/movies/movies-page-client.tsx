@@ -48,45 +48,47 @@ export default function MoviesPageClient({
   const highlightedMovies = movies.filter((movie) => movie.highlighted);
 
   return (
-    <main className={styles.container}>
+    <>
       {/* HERO */}
-      <MovieHero movie={highlightedMovies} withDescription />
-      {/* CATEGORY SELECTOR */}
-      <CategorySelector
-        genres={genres}
-        selectedGenreId={selectedGenreId}
-        setSelectedGenreId={setSelectedGenreId}
-      />
-
-      {/* MOVIES */}
-      {selectedGenreId ? (
-        <MovieList
-          title={
-            genres.find((g) => g.id === selectedGenreId)?.name || "Unknown"
-          }
-          movies={moviesByGenre[selectedGenreId] || []}
-          isLoading={loading}
+      <MovieHero movies={highlightedMovies} withDescription />
+      <section className={styles.container}>
+        {/* CATEGORY SELECTOR */}
+        <CategorySelector
+          genres={genres}
+          selectedGenreId={selectedGenreId}
+          setSelectedGenreId={setSelectedGenreId}
         />
-      ) : (
-        genres.map((genre) => (
+
+        {/* MOVIES */}
+        {selectedGenreId ? (
           <MovieList
-            key={genre.id}
-            title={genre.name}
-            movies={moviesGroupedByGenre[genre.id] || []}
-            isLoading={false}
+            title={
+              genres.find((g) => g.id === selectedGenreId)?.name || "Unknown"
+            }
+            movies={moviesByGenre[selectedGenreId] || []}
+            isLoading={loading}
           />
-        ))
-      )}
+        ) : (
+          genres.map((genre) => (
+            <MovieList
+              key={genre.id}
+              title={genre.name}
+              movies={moviesGroupedByGenre[genre.id] || []}
+              isLoading={false}
+            />
+          ))
+        )}
 
-      {/* COMING SOON */}
-      <MovieList
-        title="Coming Soon"
-        movies={movies}
-        orientation="horizontal"
-        isLoading={false}
-      />
+        {/* COMING SOON */}
+        <MovieList
+          title="Coming Soon"
+          movies={movies}
+          orientation="horizontal"
+          isLoading={false}
+        />
 
-      <Footer />
-    </main>
+        <Footer />
+      </section>
+    </>
   );
 }

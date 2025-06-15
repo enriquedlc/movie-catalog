@@ -10,28 +10,29 @@ import { ProfilePhoto } from "@/shared/ui/components/profile-photo";
 
 import Image from "next/image";
 import styles from "./movie-hero.module.css";
+import { MovieHeroButtons } from "./movie-hero-buttons";
 
 interface MovieHeroProps {
-  movie: Movie[];
+  movies: Movie[];
   withDescription: boolean;
 }
 
-export function MovieHero({ movie, withDescription }: MovieHeroProps) {
+export function MovieHero({ movies, withDescription }: MovieHeroProps) {
   const [isDesktop, setIsDesktop] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const router = useRouter();
 
-  const currentMovie = movie[currentIndex] ?? movie[0];
+  const currentMovie = movies[currentIndex] ?? movies[0];
 
   useEffect(() => {
     if (!withDescription) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % movie.length);
+      setCurrentIndex((prev) => (prev + 1) % movies.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [withDescription, movie.length]);
+  }, [withDescription, movies.length]);
 
   useEffect(() => {
     const checkIsDesktop = () => {
@@ -42,13 +43,6 @@ export function MovieHero({ movie, withDescription }: MovieHeroProps) {
     window.addEventListener("resize", checkIsDesktop);
     return () => window.removeEventListener("resize", checkIsDesktop);
   }, []);
-
-  const renderButtons = (
-    <div className={styles.actions}>
-      <button className={styles.trailer}>Trailer</button>
-      <button className={styles.play}>Play</button>
-    </div>
-  );
 
   const handleSignOut = async () => {
     await signOutAction();
@@ -66,7 +60,7 @@ export function MovieHero({ movie, withDescription }: MovieHeroProps) {
           className={styles.image}
         />
         <div className={styles.overlay}>
-          <h1 className={styles.title}>{currentMovie.title.toUpperCase()}</h1>
+          <p className={styles.title}>{currentMovie.title.toUpperCase()}</p>
           <p className={styles.description}>
             {currentMovie.description || "Discover this story today."}
           </p>
@@ -74,7 +68,7 @@ export function MovieHero({ movie, withDescription }: MovieHeroProps) {
         </div>
 
         <div className={styles.dots}>
-          {movie.map((_, i) => (
+          {movies.map((_, i) => (
             <span
               key={i}
               className={`${styles.dot} ${
@@ -96,9 +90,9 @@ export function MovieHero({ movie, withDescription }: MovieHeroProps) {
           fill
           className={styles.image}
         />
-        {isDesktop && renderButtons}
+        {isDesktop && <MovieHeroButtons />}
       </section>
-      {!isDesktop && renderButtons}
+      {!isDesktop && <MovieHeroButtons />}
     </>
   );
 }

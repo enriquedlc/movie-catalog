@@ -1,7 +1,19 @@
 .container {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  padding-block: 2rem;
-  padding-top: 4rem;
+  padding-block: 1rem;
+  padding-inline-start: 1rem;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    padding-inline-start: 2rem;
+    padding-block: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-inline-start: 7.5rem;
+  }
 }

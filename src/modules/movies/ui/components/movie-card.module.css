@@ -20,20 +20,18 @@
   display: block;
 }
 
-/* Orientaciones */
 .vertical {
-  min-width: 120px;
-  max-width: 160px;
+  min-width: 261px;
+  max-width: 386px;
   aspect-ratio: 2 / 3;
 }
 
 .horizontal {
-  min-width: 240px;
-  max-width: 300px;
+  min-width: 460px;
+  max-width: 260px;
   aspect-ratio: 16 / 9;
 }
 
-/* Skeleton style */
 .skeleton {
   background-color: #1a1a1a;
   animation: pulse 1.5s ease-in-out infinite;
@@ -46,7 +44,6 @@
   border-radius: 0.5rem;
 }
 
-/* Pulse animation */
 @keyframes pulse {
   0% {
     opacity: 0.6;

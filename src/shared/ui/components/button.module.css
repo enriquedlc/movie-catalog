@@ -16,7 +16,7 @@
 }
 
 .secondary {
-  background-color: #ffffff;
+  background-color: var(--primary-color);
   width: 343px;
   height: 57px;
   color: #000000;
@@ -42,7 +42,7 @@
 }
 
 .secondary:hover {
-  background-color: #f0f0f0;
+  background-color: #c9c5c5;
 }
 
 @media (max-width: 1023px) {
