@@ -20,7 +20,7 @@
 .overlay {
   position: relative;
   z-index: 1;
-  padding: 2rem 1rem;
+  padding-inline-start: 1rem;
   color: white;
   max-width: 800px;
 }
@@ -66,17 +66,26 @@
   transition: background-color 0.3s;
 }
 
+.dot.active {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .overlay {
+    padding-inline-start: 2rem;
+  }
+}
+
 @media (min-width: 768px) {
   .dot {
     width: 90px;
   }
 }
 
-.dot.active {
-  background-color: rgba(255, 255, 255, 0.8);
-}
-
 @media (min-width: 1024px) {
+  .overlay {
+    padding-inline-start: 7.5rem;
+  }
   .heroPlain {
     height: 800px;
   }
