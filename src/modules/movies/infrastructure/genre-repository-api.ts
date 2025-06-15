@@ -6,11 +6,11 @@ import axios from "axios";
 export function createGenreRepositoryApi(
   tokenRepo: TokenRepository
 ): GenreRepository {
-  async function getAll(): Promise<Genre[]> {
+  async function getAll(): Promise<Genre[] | null> {
     const token = await tokenRepo.get();
 
     if (!token) {
-      throw new Error("No token available");
+      return null;
     }
 
     const response = await axios.get<Genre[]>(

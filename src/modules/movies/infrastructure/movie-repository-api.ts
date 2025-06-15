@@ -6,11 +6,11 @@ import { Movie } from "../domain/Movie";
 export function createMovieRepositoryApi(
   tokenRepository: TokenRepository
 ): MovieRepository {
-  async function getAll(): Promise<Movie[]> {
+  async function getAll(): Promise<Movie[] | null> {
     const token = await tokenRepository.get();
 
     if (!token) {
-      throw new Error("No token available");
+      return null;
     }
 
     try {
@@ -26,7 +26,7 @@ export function createMovieRepositoryApi(
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 404) {
-        return [];
+        return null;
       }
       throw error;
     }
@@ -36,7 +36,7 @@ export function createMovieRepositoryApi(
     const token = await tokenRepository.get();
 
     if (!token) {
-      throw new Error("No token available");
+      return null;
     }
 
     try {
@@ -58,11 +58,11 @@ export function createMovieRepositoryApi(
     }
   }
 
-  async function getUserList(): Promise<Movie[]> {
+  async function getUserList(): Promise<Movie[] | null> {
     const token = await tokenRepository.get();
 
     if (!token) {
-      throw new Error("No token available");
+      return null;
     }
 
     try {
@@ -113,9 +113,7 @@ export function createMovieRepositoryApi(
 
   async function removeFromUserList(id: string): Promise<void> {
     const token = await tokenRepository.get();
-    if (!token) {
-      throw new Error("No token available");
-    }
+    if (!token) return;
 
     try {
       await axios.delete(

@@ -46,7 +46,7 @@ export function MovieHero({ movies, carrousel }: MovieHeroProps) {
 
   const handleSignOut = async () => {
     await signOutAction();
-    router.push("/login");
+    router.replace("/login");
   };
 
   if (carrousel) {

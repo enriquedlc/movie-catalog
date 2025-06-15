@@ -8,7 +8,9 @@ export class SignOutUseCase {
   ) {}
 
   async execute() {
-    this.authService.signOut();
+    const token = await this.tokenRepository.get();
+    if (!token) return;
+    await this.authService.signOut(token);
     await this.tokenRepository.remove();
   }
 }

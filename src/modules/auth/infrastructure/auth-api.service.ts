@@ -30,9 +30,18 @@ export class AuthApiService implements AuthServicePort {
     }
   }
 
-  async signOut() {
+  async signOut(token: string) {
     try {
-      await axios.post("https://kata.conducerevel.com/films/auth/sign-out");
+      await axios.post(
+        "https://kata.conducerevel.com/films/auth/sign-out",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       return;
     } catch (error) {
       if (axios.isAxiosError(error)) {
