@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { createGenreRepositoryApi } from "@/modules/movies/infrastructure/genre-repository-api";
 import { createMovieRepositoryApi } from "@/modules/movies/infrastructure/movie-repository-api";
 import { createTokenRepositoryCookies } from "@/shared/token/infrastructure/token-repository-cookies";
-import MoviesPageClient from "./movies-page-client";
+import MoviesPageClient from "../../modules/movies/ui/views/movies-page-client";
 
 export default async function MoviesPage() {
   const tokenRepository = createTokenRepositoryCookies();

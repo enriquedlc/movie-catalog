@@ -1,148 +1,87 @@
 import axios from "axios";
 
 import { API_BASE_URL } from "@/shared/constants";
+import { UnauthorizedError } from "@/shared/errors/app-errors";
 import { TokenRepository } from "@/shared/token/domain/TokenRepository";
+import { handleError } from "@/shared/utils/handle-error";
 import { Movie } from "../domain/Movie";
 import { MovieRepository } from "../domain/MovieRepository";
 
 export function createMovieRepositoryApi(
   tokenRepository: TokenRepository
 ): MovieRepository {
-  async function getAll(): Promise<Movie[] | null> {
+  async function authHeader(): Promise<{ Authorization: string }> {
     const token = await tokenRepository.get();
+    if (!token) throw new UnauthorizedError();
+    return { Authorization: `Bearer ${token}` };
+  }
 
-    if (!token) {
-      return null;
-    }
-
+  async function getAll(): Promise<Movie[]> {
     try {
+      const headers = await authHeader();
       const response = await axios.get<Movie[]>(`${API_BASE_URL}/movies`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers,
       });
-
       return response.data;
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 404) {
-        return null;
-      }
-      throw error;
+      handleError(error);
     }
   }
 
-  async function getById(id: string): Promise<Movie | null> {
-    const token = await tokenRepository.get();
-
-    if (!token) {
-      return null;
-    }
-
+  async function getById(id: string): Promise<Movie> {
     try {
+      const headers = await authHeader();
       const response = await axios.get<Movie>(`${API_BASE_URL}/movies/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers,
       });
-
       return response.data;
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 404) {
-        return null;
-      }
-      throw error;
+      handleError(error);
     }
   }
 
-  async function getUserList(): Promise<Movie[] | null> {
-    const token = await tokenRepository.get();
-
-    if (!token) {
-      return null;
-    }
-
+  async function getUserList(): Promise<Movie[]> {
     try {
+      const headers = await authHeader();
       const response = await axios.get<Movie[]>(`${API_BASE_URL}/user/list`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers,
       });
-
       return response.data;
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 404) {
-        return [];
-      }
-      throw error;
+      handleError(error);
     }
   }
 
   async function addToUserList(id: string): Promise<void> {
-    const token = await tokenRepository.get();
-
-    if (!token) {
-      throw new Error("No token available");
-    }
-
     try {
-      await axios.post(
-        `${API_BASE_URL}/user/list`,
-        {
-          id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const headers = await authHeader();
+      await axios.post(`${API_BASE_URL}/user/list`, { id }, { headers });
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 404) {
-        throw new Error("Movie not found");
-      }
-      throw error;
+      handleError(error);
     }
   }
 
   async function removeFromUserList(id: string): Promise<void> {
-    const token = await tokenRepository.get();
-    if (!token) return;
-
     try {
-      await axios.delete(`${API_BASE_URL}/user/list/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const headers = await authHeader();
+      await axios.delete(`${API_BASE_URL}/user/list/${id}`, { headers });
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 404) {
-        throw new Error("Movie not found");
-      }
-      throw error;
+      handleError(error);
     }
   }
 
-  async function getByGenre(genreId: string): Promise<Movie[] | null> {
-    const token = await tokenRepository.get();
-    if (!token) {
-      return null;
-    }
-
+  async function getByGenre(genreId: string): Promise<Movie[]> {
     try {
+      const headers = await authHeader();
       const response = await axios.get<Movie[]>(
         `${API_BASE_URL}/genres/${genreId}/movies`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers,
         }
       );
       return response.data;
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 404) {
-        return null;
-      }
-      throw error;
+      handleError(error);
     }
   }
 

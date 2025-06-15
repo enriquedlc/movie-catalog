@@ -1,14 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
+
 import { Genre } from "@/modules/movies/domain/Genre";
 import { Movie } from "@/modules/movies/domain/Movie";
-import { MovieList } from "@/modules/movies/ui/components/movie-list";
 import { MovieHero } from "@/modules/movies/ui/components/movie-hero";
-import styles from "./movies-page.module.css";
-import { Footer } from "@/shared/ui/components/footer";
+import { MovieList } from "@/modules/movies/ui/components/movie-list";
 import { CategorySelector } from "@/shared/ui/components/category-selector";
+import { Footer } from "@/shared/ui/components/footer";
+
+import styles from "./movies-page.module.css";
 
 interface MoviesPageClientProps {
   genres: Genre[];
