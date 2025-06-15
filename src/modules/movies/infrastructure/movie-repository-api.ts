@@ -1,7 +1,9 @@
 import axios from "axios";
-import { MovieRepository } from "../domain/MovieRepository";
+
+import { API_BASE_URL } from "@/shared/constants";
 import { TokenRepository } from "@/shared/token/domain/TokenRepository";
 import { Movie } from "../domain/Movie";
+import { MovieRepository } from "../domain/MovieRepository";
 
 export function createMovieRepositoryApi(
   tokenRepository: TokenRepository
@@ -14,14 +16,11 @@ export function createMovieRepositoryApi(
     }
 
     try {
-      const response = await axios.get<Movie[]>(
-        `https://kata.conducerevel.com/films/movies`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get<Movie[]>(`${API_BASE_URL}/movies`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       return response.data;
     } catch (error) {
@@ -40,14 +39,11 @@ export function createMovieRepositoryApi(
     }
 
     try {
-      const response = await axios.get<Movie>(
-        `https://kata.conducerevel.com/films/movies/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get<Movie>(`${API_BASE_URL}/movies/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       return response.data;
     } catch (error) {
@@ -66,14 +62,11 @@ export function createMovieRepositoryApi(
     }
 
     try {
-      const response = await axios.get<Movie[]>(
-        `https://kata.conducerevel.com/films/user/list`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get<Movie[]>(`${API_BASE_URL}/user/list`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       return response.data;
     } catch (error) {
@@ -93,7 +86,7 @@ export function createMovieRepositoryApi(
 
     try {
       await axios.post(
-        `https://kata.conducerevel.com/films/user/list`,
+        `${API_BASE_URL}/user/list`,
         {
           id,
         },
@@ -116,14 +109,11 @@ export function createMovieRepositoryApi(
     if (!token) return;
 
     try {
-      await axios.delete(
-        `https://kata.conducerevel.com/films/user/list/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.delete(`${API_BASE_URL}/user/list/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 404) {
         throw new Error("Movie not found");

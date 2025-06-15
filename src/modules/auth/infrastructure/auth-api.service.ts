@@ -1,13 +1,15 @@
 import axios from "axios";
+
 import { AuthServicePort } from "../domain/auth-service.port";
+import { API_BASE_URL } from "@/shared/constants";
 
 export class AuthApiService implements AuthServicePort {
   async signIn(email: string, password: string) {
     try {
-      const response = await axios.post(
-        "https://kata.conducerevel.com/films/auth/sign-in",
-        { email, password }
-      );
+      const response = await axios.post(`${API_BASE_URL}/auth/sign-in`, {
+        email,
+        password,
+      });
 
       const token = response.data?.token;
 
@@ -33,7 +35,7 @@ export class AuthApiService implements AuthServicePort {
   async signOut(token: string) {
     try {
       await axios.post(
-        "https://kata.conducerevel.com/films/auth/sign-out",
+        `${API_BASE_URL}/auth/sign-out`,
         {},
         {
           headers: {
