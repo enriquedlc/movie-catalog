@@ -14,10 +14,10 @@ import styles from "./movie-hero.module.css";
 
 interface MovieHeroProps {
   movies: Movie[];
-  withDescription: boolean;
+  carrousel: boolean;
 }
 
-export function MovieHero({ movies, withDescription }: MovieHeroProps) {
+export function MovieHero({ movies, carrousel }: MovieHeroProps) {
   const [isDesktop, setIsDesktop] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const router = useRouter();
@@ -25,14 +25,14 @@ export function MovieHero({ movies, withDescription }: MovieHeroProps) {
   const currentMovie = movies[currentIndex] ?? movies[0];
 
   useEffect(() => {
-    if (!withDescription) return;
+    if (!carrousel) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % movies.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [withDescription, movies.length]);
+  }, [carrousel, movies.length]);
 
   useEffect(() => {
     const checkIsDesktop = () => {
@@ -49,7 +49,7 @@ export function MovieHero({ movies, withDescription }: MovieHeroProps) {
     router.push("/login");
   };
 
-  if (withDescription) {
+  if (carrousel) {
     return (
       <section className={`${styles.hero} ${styles.heroPlain}`}>
         <ProfilePhoto onSignOut={handleSignOut} />

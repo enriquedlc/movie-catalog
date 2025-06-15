@@ -50,7 +50,7 @@ export default function MoviesPageClient({
   return (
     <>
       {/* HERO */}
-      <MovieHero movies={highlightedMovies} withDescription />
+      <MovieHero movies={highlightedMovies} carrousel />
       <section className={styles.container}>
         {/* CATEGORY SELECTOR */}
         <CategorySelector
