@@ -2,13 +2,15 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import styles from "./login-page.module.css";
+
 import { signInAction } from "@/modules/auth/entrypoints/sign-in";
+import styles from "./login-page.module.css";
 
 export default function LoginPage() {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
