@@ -4,7 +4,7 @@ import { getMoviesByGenre } from "@/modules/movies/entrypoints/get-movies-by-gen
 import { handleApiError } from "@/shared/utils/handle-api-error";
 
 export async function GET(
-  request: NextRequest,
+  _request: NextRequest,
   context: { params: { id: string } }
 ) {
   const { id } = context.params;
