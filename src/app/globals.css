@@ -3,12 +3,18 @@
   --foreground: #171717;
   --primary-color: #751b5c;
   --secondary-color: #ffffff;
+  --font-default: var(--font-roboto);
+  --font-condensed: var(--font-roboto-condensed);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #222222;
     --foreground: #ededed;
+    --primary-color: #751b5c;
+    --secondary-color: #ffffff;
+    --font-default: var(--font-roboto);
+    --font-condensed: var(--font-roboto-condensed);
   }
 }
 
@@ -21,6 +27,7 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
+  /* font-family: Arial, Helvetica, sans-serif; */
   font-family: var(--font-roboto), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -20,21 +20,21 @@
 .overlay {
   position: relative;
   z-index: 1;
-  padding-inline-start: 1rem;
+  padding-inline: 1rem;
   color: white;
   max-width: 800px;
 }
 
 .title {
-  font-size: clamp(2rem, 6vw, 5rem);
-  font-weight: 800;
+  font-size: 54px;
+  line-height: 54px;
+  font-weight: 700;
   margin-bottom: 1rem;
   line-height: 1.2;
 }
 
 .description {
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  line-height: 1.5;
+  font-size: 16px;
   margin-bottom: 2rem;
   display: -webkit-box;
   line-clamp: 4;
@@ -71,6 +71,13 @@
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
+  .title {
+    font-size: 76px;
+    line-height: 75px;
+  }
+  .description {
+    font-size: 24px;
+  }
   .overlay {
     padding-inline-start: 2rem;
   }
@@ -83,6 +90,10 @@
 }
 
 @media (min-width: 1024px) {
+  .title {
+    font-size: 128px;
+    line-height: 130px;
+  }
   .overlay {
     padding-inline-start: 7.5rem;
   }
