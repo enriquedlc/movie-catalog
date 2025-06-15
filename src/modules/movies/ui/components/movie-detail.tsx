@@ -52,7 +52,7 @@ export function MovieDetail({ movie }: MovieDetailProps) {
 
         <section className={styles.description}>
           <h1 className={styles.title}>{movie.title.toLocaleUpperCase()}</h1>
-          <p className={styles.text}>{movie.description}</p>
+          <p className={styles.textDescription}>{movie.description}</p>
         </section>
       </div>
 

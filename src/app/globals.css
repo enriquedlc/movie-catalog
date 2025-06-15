@@ -49,3 +49,7 @@ a {
     color-scheme: dark;
   }
 }
+
+button {
+  font-family: var(--font-roboto);
+}

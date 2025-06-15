@@ -40,32 +40,40 @@
 }
 
 .title {
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 800;
+  font-family: var(--font-condensed);
+  font-size: 54;
+  line-height: 60px;
+  font-weight: 700;
   color: white;
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
 
-.text {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: white;
-}
-
 @media (min-width: 768px) {
+  .title {
+    font-size: 76;
+    line-height: 60px;
+  }
   .section {
     padding-inline: 2rem;
   }
 }
 
 @media (min-width: 1024px) {
+  .title {
+    font-size: 128px;
+    line-height: 130px;
+  }
   .section {
     padding-block: 2rem;
   }
 }
 
 @media (min-width: 1280px) {
+  .title {
+    font-size: 128px;
+    line-height: 130px;
+  }
   .section {
     padding-block: 2rem;
     padding-inline: 4rem;
@@ -103,19 +111,22 @@
   border: none;
   cursor: pointer;
   color: white;
-  font-weight: bold;
-  font-size: 0.875rem;
-  padding: 0.25rem;
 }
 
 .icon {
-  font-size: 1.5rem;
-  color: #a020f0;
+  font-size: 4rem;
+  color: var(--primary-color);
   line-height: 1;
 }
 
 .text {
-  margin-top: 0.25rem;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.textDescription {
+  font-size: 24px;
+  font-weight: 400;
 }
 
 .description {
