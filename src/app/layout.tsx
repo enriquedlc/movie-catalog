@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto, Roboto_Condensed } from "next/font/google";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
