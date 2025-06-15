@@ -1,5 +1,6 @@
 "use client";
 
+import { showToast } from "nextjs-toast-notify";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -11,15 +12,34 @@ export default function LoginPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const result = await signInAction(email, password);
-    if (!result.success) {
-      alert(result.message);
-      return;
+    setLoading(true);
+
+    try {
+      const result = await signInAction(email, password);
+
+      if (!result.success) {
+        showToast.error("Invalid credentials.", {
+          duration: 4000,
+          position: "top-center",
+          transition: "bounceIn",
+        });
+        return;
+      }
+
+      router.push("/movies");
+    } catch (error) {
+      showToast.error(`${(error as Error).message}`, {
+        duration: 4000,
+        position: "top-center",
+        transition: "bounceIn",
+      });
+    } finally {
+      setLoading(false);
     }
-    router.push("/movies");
   };
 
   return (
@@ -28,9 +48,10 @@ export default function LoginPage() {
         <input
           className={styles.input}
           type="email"
-          placeholder="Username"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
         <input
           className={styles.input}
@@ -38,9 +59,10 @@ export default function LoginPage() {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
-        <button className={styles.button} type="submit">
-          Sign In
+        <button className={styles.button} type="submit" disabled={loading}>
+          {loading ? "Loading..." : "Sign In"}
         </button>
       </form>
     </div>

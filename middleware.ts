@@ -1,13 +1,11 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-const protectedRoutes = ["/movies"];
+export function middleware(request: NextRequest) {
+  const jwt = request.cookies.get("jwt")?.value;
 
-export async function middleware(request: NextRequest) {
-  const jwt = (await cookies()).get("jwt")?.value;
-
-  const isProtected = protectedRoutes.some((route) =>
-    request.nextUrl.pathname.startsWith(route)
+  const protectedPaths = ["/movies"];
+  const isProtected = protectedPaths.some((path) =>
+    request.nextUrl.pathname.startsWith(path)
   );
 
   if (isProtected && !jwt) {
@@ -18,5 +16,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|api|favicon.ico).*)"],
+  matcher: ["/movies/:path*", "/movies"],
 };
