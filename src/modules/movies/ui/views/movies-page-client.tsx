@@ -1,8 +1,8 @@
 "use client";
 
-import axios from "axios";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import axios from "axios";
 
 import { Genre } from "@/modules/movies/domain/Genre";
 import { Movie } from "@/modules/movies/domain/Movie";
@@ -12,6 +12,7 @@ import { Footer } from "@/shared/ui/components/footer";
 import { CategorySelector } from "../components/category-selector";
 
 import styles from "./movies-page.module.css";
+import { handleAppError } from "@/shared/utils/handle-app-error";
 
 interface MoviesPageClientProps {
   genres: Genre[];
@@ -22,40 +23,69 @@ export function MoviesPageClient({ genres, movies }: MoviesPageClientProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const genreIdFromUrl = searchParams.get("genre") ?? "";
+  const [selectedGenreId, setSelectedGenreId] = useState(
+    searchParams.get("genre") ?? ""
+  );
 
   const [moviesByGenre, setMoviesByGenre] = useState<Record<string, Movie[]>>(
     {}
   );
   const [loadingGenre, setLoadingGenre] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
+  const [userMovies, setUserMovies] = useState<Movie[]>([]);
+  const [, startTransition] = useTransition();
 
   useEffect(() => {
-    if (!genreIdFromUrl || moviesByGenre[genreIdFromUrl]) return;
-    setInitialLoading(false);
+    const paramFromUrl = searchParams.get("genre") ?? "";
+    setSelectedGenreId(paramFromUrl);
+  }, [searchParams]);
 
+  useEffect(() => {
+    const fetchUserFavorites = async () => {
+      try {
+        const response = await axios.get<string[]>("/api/films/user/list");
+        const movieIds = response.data;
+        const filtered = movies.filter((movie) => movieIds.includes(movie.id));
+        setUserMovies(filtered);
+      } catch (error) {
+        handleAppError(error);
+      }
+    };
+
+    fetchUserFavorites();
+  }, [movies]);
+
+  useEffect(() => {
+    if (!selectedGenreId || moviesByGenre[selectedGenreId]) return;
+
+    setInitialLoading(false);
     setLoadingGenre(true);
-    axios
-      .get(`/api/films/genres/${genreIdFromUrl}/movies`)
-      .then((res) =>
+
+    fetch(`/api/films/genres/${selectedGenreId}/movies`)
+      .then((res) => res.json())
+      .then((data: Movie[]) =>
         setMoviesByGenre((prev) => ({
           ...prev,
-          [genreIdFromUrl]: res.data,
+          [selectedGenreId]: data,
         }))
       )
       .finally(() => setLoadingGenre(false));
-  }, [genreIdFromUrl, moviesByGenre]);
+  }, [selectedGenreId, moviesByGenre]);
 
   const handleGenreChange = (genreId: string) => {
-    const params = new URLSearchParams(searchParams.toString());
+    setSelectedGenreId(genreId);
 
-    if (genreId) {
-      params.set("genre", genreId);
-    } else {
-      params.delete("genre");
-    }
+    startTransition(() => {
+      const params = new URLSearchParams(searchParams.toString());
 
-    router.replace(`/movies?${params.toString()}`);
+      if (genreId) {
+        params.set("genre", genreId);
+      } else {
+        params.delete("genre");
+      }
+
+      router.replace(`/movies?${params.toString()}`, { scroll: false });
+    });
   };
 
   const moviesGroupedByGenre = useMemo(
@@ -78,16 +108,16 @@ export function MoviesPageClient({ genres, movies }: MoviesPageClientProps) {
       <section className={styles.container}>
         <CategorySelector
           genres={genres}
-          selectedGenreId={genreIdFromUrl}
+          selectedGenreId={selectedGenreId}
           handleGenreChange={handleGenreChange}
         />
 
-        {genreIdFromUrl ? (
+        {selectedGenreId ? (
           <MovieList
             title={
-              genres.find((g) => g.id === genreIdFromUrl)?.name || "Unknown"
+              genres.find((g) => g.id === selectedGenreId)?.name || "Unknown"
             }
-            movies={moviesByGenre[genreIdFromUrl] || []}
+            movies={moviesByGenre[selectedGenreId] || []}
             isLoading={loadingGenre}
           />
         ) : (
@@ -105,6 +135,13 @@ export function MoviesPageClient({ genres, movies }: MoviesPageClientProps) {
           title="Coming Soon"
           movies={movies}
           orientation="horizontal"
+          isLoading={initialLoading}
+        />
+
+        <MovieList
+          title="My List"
+          movies={userMovies}
+          orientation="vertical"
           isLoading={initialLoading}
         />
       </section>

@@ -3,7 +3,7 @@ import axios from "axios";
 import { API_BASE_URL } from "@/shared/constants";
 import { UnauthorizedError } from "@/shared/errors/app-errors";
 import { TokenRepository } from "@/shared/token/domain/TokenRepository";
-import { handleError } from "@/shared/utils/handle-app-error";
+import { handleAppError } from "@/shared/utils/handle-app-error";
 import { Movie } from "../domain/Movie";
 import { MovieRepository } from "../domain/MovieRepository";
 
@@ -24,7 +24,7 @@ export function createMovieRepositoryApi(
       });
       return response.data;
     } catch (error) {
-      handleError(error);
+      handleAppError(error);
     }
   }
 
@@ -36,19 +36,19 @@ export function createMovieRepositoryApi(
       });
       return response.data;
     } catch (error) {
-      handleError(error);
+      handleAppError(error);
     }
   }
 
-  async function getUserList(): Promise<Movie[]> {
+  async function getUserList(): Promise<string[]> {
     try {
       const headers = await authHeader();
-      const response = await axios.get<Movie[]>(`${API_BASE_URL}/user/list`, {
+      const response = await axios.get<string[]>(`${API_BASE_URL}/user/list`, {
         headers,
       });
       return response.data;
     } catch (error) {
-      handleError(error);
+      handleAppError(error);
     }
   }
 
@@ -57,7 +57,7 @@ export function createMovieRepositoryApi(
       const headers = await authHeader();
       await axios.post(`${API_BASE_URL}/user/list`, { id }, { headers });
     } catch (error) {
-      handleError(error);
+      handleAppError(error);
     }
   }
 
@@ -66,7 +66,7 @@ export function createMovieRepositoryApi(
       const headers = await authHeader();
       await axios.delete(`${API_BASE_URL}/user/list/${id}`, { headers });
     } catch (error) {
-      handleError(error);
+      handleAppError(error);
     }
   }
 
@@ -81,7 +81,7 @@ export function createMovieRepositoryApi(
       );
       return response.data;
     } catch (error) {
-      handleError(error);
+      handleAppError(error);
     }
   }
 

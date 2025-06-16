@@ -5,9 +5,9 @@ import { handleApiError } from "@/shared/utils/handle-api-error";
 
 export async function GET(
   _request: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  const { id } = context.params;
+  const { id } = (await context.params);
 
   try {
     const movies = await getMoviesByGenre(id);

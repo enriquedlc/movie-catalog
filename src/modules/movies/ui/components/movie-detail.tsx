@@ -9,15 +9,14 @@ import styles from "./movie-detail.module.css";
 
 interface MovieDetailProps {
   movie: Movie;
+  isInUserList: boolean;
 }
 
-export function MovieDetail({ movie }: MovieDetailProps) {
+export function MovieDetail({ movie, isInUserList }: MovieDetailProps) {
   return (
     <main className={styles.container}>
       <MovieHero movies={[movie]} carrousel={false} />
-      <section className={styles.section}>
-        <MovieInfo movie={movie} />
-      </section>
+      <MovieInfo movie={movie} isInUserList={isInUserList} />
       <Footer />
     </main>
   );

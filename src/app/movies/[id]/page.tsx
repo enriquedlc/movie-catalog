@@ -5,10 +5,11 @@ import { MovieDetail } from "@/modules/movies/ui/components/movie-detail";
 import { handleAppError } from "@/shared/errors/handle-app-error";
 
 interface MoviePageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export default async function MoviePage({ params }: MoviePageProps) {
+export default async function MoviePage(props: MoviePageProps) {
+  const params = await props.params;
   const tokenRepo = createTokenRepositoryCookies();
   const movieRepo = createMovieRepositoryApi(tokenRepo);
   const genreRepo = createGenreRepositoryApi(tokenRepo);
@@ -16,10 +17,13 @@ export default async function MoviePage({ params }: MoviePageProps) {
   try {
     const movie = await movieRepo.getById(params.id);
     const genre = await genreRepo.getById(movie.genre);
+    const isInUserList = await movieRepo
+      .getUserList()
+      .then((list) => list.includes(movie.id));
 
     const movieWithGenre = { ...movie, genre: genre.name };
 
-    return <MovieDetail movie={movieWithGenre} />;
+    return <MovieDetail movie={movieWithGenre} isInUserList={isInUserList} />;
   } catch (error) {
     handleAppError(error);
   }

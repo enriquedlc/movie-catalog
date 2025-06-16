@@ -1,3 +1,9 @@
+.section {
+  padding-inline: 1rem;
+  max-width: 1200px;
+  width: 100%;
+}
+
 .myList {
   display: flex;
   flex-direction: column;
@@ -41,7 +47,6 @@
 }
 
 .meta p {
-  font-size: 0.9rem;
   margin: 0;
 }
 

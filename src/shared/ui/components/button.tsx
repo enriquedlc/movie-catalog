@@ -9,6 +9,7 @@ interface CustomButtonProps {
   color?: "primary" | "secondary" | "tertiary";
   type?: "button" | "link";
   href?: string;
+  disabled?: boolean;
 }
 
 export function CustomButton({
@@ -18,6 +19,7 @@ export function CustomButton({
   children,
   type = "button",
   href = "",
+  disabled = false,
 }: PropsWithChildren<CustomButtonProps>) {
   const typeClass = styles[color] || "";
   const buttonClass = `${styles.button} ${typeClass} ${className}`.trim();
@@ -25,13 +27,15 @@ export function CustomButton({
   if (type === "link") {
     return (
       <Link href={href} className={buttonClass}>
-        <button className={buttonClass}>{children}</button>
+        <button disabled={disabled} className={buttonClass}>
+          {children}
+        </button>
       </Link>
     );
   }
 
   return (
-    <button onClick={onClick} className={buttonClass}>
+    <button disabled={disabled} onClick={onClick} className={buttonClass}>
       {children}
     </button>
   );

@@ -9,21 +9,22 @@ interface CategorySelectorProps {
   genres: Genre[];
   selectedGenreId: string;
   handleGenreChange: (id: string) => void;
+  isPending?: boolean;
 }
 
 export function CategorySelector({
   genres,
   selectedGenreId,
   handleGenreChange,
+  isPending = false,
 }: CategorySelectorProps) {
-  const isSelected = (id: string) => selectedGenreId === id;
-
   return (
     <div className={styles.categorySelector}>
       <CustomButton
         color="tertiary"
-        className={isSelected("") ? styles.selectedButton : ""}
+        className={`${selectedGenreId === "" ? styles.selectedButton : ""}`}
         onClick={() => handleGenreChange("")}
+        disabled={isPending}
       >
         All
       </CustomButton>
@@ -32,8 +33,9 @@ export function CategorySelector({
         <CustomButton
           key={genre.id}
           color="tertiary"
-          className={isSelected(genre.id) ? styles.selectedButton : ""}
+          className={selectedGenreId === genre.id ? styles.selectedButton : ""}
           onClick={() => handleGenreChange(genre.id)}
+          disabled={isPending}
         >
           {genre.name}
         </CustomButton>

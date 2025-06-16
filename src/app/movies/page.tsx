@@ -12,6 +12,7 @@ export default async function MoviesPage() {
   try {
     const movies = await movieRepo.getAll();
     const genres = await genreRepo.getAll();
+
     return <MoviesPageClient movies={movies} genres={genres} />;
   } catch (error) {
     handleAppError(error);

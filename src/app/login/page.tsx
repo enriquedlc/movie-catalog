@@ -1,10 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { showToast } from "nextjs-toast-notify";
 import { useState } from "react";
 
 import { signInAction } from "@/modules/auth/entrypoints/sign-in";
+import { showToastLib } from "@/shared/ui/utils/toast";
+
 import styles from "./login-page.module.css";
 
 export default function LoginPage() {
@@ -22,7 +23,7 @@ export default function LoginPage() {
       const result = await signInAction(email, password);
 
       if (!result.success) {
-        showToast.error("Invalid credentials.", {
+        showToastLib.error("Invalid credentials.", {
           duration: 4000,
           position: "top-center",
           transition: "bounceIn",
@@ -32,7 +33,7 @@ export default function LoginPage() {
 
       router.push("/movies");
     } catch (error) {
-      showToast.error(`${(error as Error).message}`, {
+      showToastLib.error(`${(error as Error).message}`, {
         duration: 4000,
         position: "top-center",
         transition: "bounceIn",

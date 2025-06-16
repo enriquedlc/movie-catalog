@@ -3,7 +3,7 @@ import axios from "axios";
 import { API_BASE_URL } from "@/shared/constants";
 import { UnauthorizedError } from "@/shared/errors/app-errors";
 import { TokenRepository } from "@/shared/token/domain/TokenRepository";
-import { handleError } from "@/shared/utils/handle-app-error";
+import { handleAppError } from "@/shared/utils/handle-app-error";
 import { Genre } from "../domain/Genre";
 import { GenreRepository } from "../domain/GenreRepository";
 
@@ -24,7 +24,7 @@ export function createGenreRepositoryApi(
       });
       return response.data;
     } catch (error) {
-      handleError(error);
+      handleAppError(error);
     }
   }
 
@@ -36,7 +36,7 @@ export function createGenreRepositoryApi(
       });
       return response.data;
     } catch (error) {
-      handleError(error);
+      handleAppError(error);
     }
   }
 

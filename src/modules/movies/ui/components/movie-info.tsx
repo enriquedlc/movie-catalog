@@ -1,23 +1,69 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
+
+import { handleAppError } from "@/shared/errors/handle-app-error";
+import { showToastLib } from "@/shared/ui/utils/toast";
 import { Movie } from "../../domain/Movie";
-import styles from "./movie-info.module.css";
 import { Rating } from "./rating";
+
+import styles from "./movie-info.module.css";
 
 interface MovieInfoProps {
   movie: Movie;
+  isInUserList: boolean;
 }
 
-export function MovieInfo({ movie }: MovieInfoProps) {
-  const [inList, setInList] = useState(false);
+export function MovieInfo({ movie, isInUserList }: MovieInfoProps) {
+  const [inList, setInList] = useState(isInUserList);
+  const [isPending, startTransition] = useTransition();
 
-  const toggleList = () => setInList((prev) => !prev);
+  const toggleList = () => {
+    startTransition(async () => {
+      try {
+        if (inList) {
+          await fetch(`/api/films/user/list/${movie.id}`, {
+            method: "DELETE",
+          });
+          setInList(false);
+          showToastLib.success(`Removed ${movie.title} from your list`, {
+            duration: 3000,
+            position: "top-center",
+            transition: "bounceIn",
+          });
+        } else {
+          await fetch(`/api/films/user/list`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: movie.id }),
+          });
+          setInList(true);
+          showToastLib.success(`Added ${movie.title} to your list`, {
+            duration: 3000,
+            position: "top-center",
+            transition: "bounceIn",
+          });
+        }
+      } catch (error) {
+        showToastLib.error("Something went wrong. Try again later", {
+          duration: 4000,
+          position: "top-center",
+        });
+        handleAppError(error);
+      }
+    });
+  };
 
   return (
-    <>
+    <section className={styles.section}>
       <section className={styles.myList}>
-        <button onClick={toggleList} className={styles.listButton}>
+        <button
+          onClick={toggleList}
+          className={styles.listButton}
+          disabled={isPending}
+        >
           <span className={styles.icon}>{inList ? "★" : "+"}</span>
           <span className={styles.text}>
             {inList ? "Remove from my list" : "Add to my list"}
@@ -39,6 +85,6 @@ export function MovieInfo({ movie }: MovieInfoProps) {
         <h1 className={styles.title}>{movie.title.toLocaleUpperCase()}</h1>
         <p className={styles.textDescription}>{movie.description}</p>
       </section>
-    </>
+    </section>
   );
 }
