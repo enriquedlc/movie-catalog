@@ -16,11 +16,13 @@ export function MovieList({
   isLoading,
   orientation = "vertical",
 }: MovieListProps) {
+  const shouldShowSkeletons = isLoading && movies.length === 0;
+
   return (
     <section className={styles.section}>
       <p className={styles.genreTitle}>{title}</p>
       <div className={styles.horizontalScroll}>
-        {isLoading
+        {shouldShowSkeletons
           ? Array.from({ length: 20 }).map((_, i) => (
               <MovieCardSkeleton key={i} orientation={orientation} />
             ))

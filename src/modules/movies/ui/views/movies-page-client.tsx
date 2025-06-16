@@ -27,12 +27,14 @@ export function MoviesPageClient({ genres, movies }: MoviesPageClientProps) {
   const [moviesByGenre, setMoviesByGenre] = useState<Record<string, Movie[]>>(
     {}
   );
-  const [loading, setLoading] = useState(false);
+  const [loadingGenre, setLoadingGenre] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
 
   useEffect(() => {
     if (!genreIdFromUrl || moviesByGenre[genreIdFromUrl]) return;
+    setInitialLoading(false);
 
-    setLoading(true);
+    setLoadingGenre(true);
     axios
       .get(`/api/films/genres/${genreIdFromUrl}/movies`)
       .then((res) =>
@@ -41,7 +43,7 @@ export function MoviesPageClient({ genres, movies }: MoviesPageClientProps) {
           [genreIdFromUrl]: res.data,
         }))
       )
-      .finally(() => setLoading(false));
+      .finally(() => setLoadingGenre(false));
   }, [genreIdFromUrl, moviesByGenre]);
 
   const handleGenreChange = (genreId: string) => {
@@ -72,24 +74,21 @@ export function MoviesPageClient({ genres, movies }: MoviesPageClientProps) {
 
   return (
     <>
-      {/* HERO */}
       <MovieHero movies={highlightedMovies} carrousel />
       <section className={styles.container}>
-        {/* CATEGORY SELECTOR */}
         <CategorySelector
           genres={genres}
           selectedGenreId={genreIdFromUrl}
           handleGenreChange={handleGenreChange}
         />
 
-        {/* MOVIES */}
         {genreIdFromUrl ? (
           <MovieList
             title={
               genres.find((g) => g.id === genreIdFromUrl)?.name || "Unknown"
             }
             movies={moviesByGenre[genreIdFromUrl] || []}
-            isLoading={loading}
+            isLoading={loadingGenre}
           />
         ) : (
           genres.map((genre) => (
@@ -97,17 +96,16 @@ export function MoviesPageClient({ genres, movies }: MoviesPageClientProps) {
               key={genre.id}
               title={genre.name}
               movies={moviesGroupedByGenre[genre.id] || []}
-              isLoading={false}
+              isLoading={initialLoading}
             />
           ))
         )}
 
-        {/* COMING SOON */}
         <MovieList
           title="Coming Soon"
           movies={movies}
           orientation="horizontal"
-          isLoading={false}
+          isLoading={initialLoading}
         />
       </section>
       <Footer />
