@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import { useState, useTransition } from "react";
 
 import { handleAppError } from "@/shared/errors/handle-app-error";
@@ -22,7 +23,7 @@ export function MovieInfo({ movie, isInUserList }: MovieInfoProps) {
     startTransition(async () => {
       try {
         if (inList) {
-          await fetch(`/api/films/user/list/${movie.id}`, {
+          await axios.delete(`/api/films/user/list/${movie.id}`, {
             method: "DELETE",
           });
           setInList(false);
@@ -32,13 +33,7 @@ export function MovieInfo({ movie, isInUserList }: MovieInfoProps) {
             transition: "bounceIn",
           });
         } else {
-          await fetch(`/api/films/user/list`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ id: movie.id }),
-          });
+          await axios.post(`/api/films/user/list`);
           setInList(true);
           showToastLib.success(`Added ${movie.title} to your list`, {
             duration: 3000,
