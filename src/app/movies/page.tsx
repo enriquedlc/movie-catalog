@@ -1,6 +1,6 @@
 import { createGenreRepositoryApi } from "@/modules/movies/infrastructure/genre-repository-api";
 import { createMovieRepositoryApi } from "@/modules/movies/infrastructure/movie-repository-api";
-import MoviesPageClient from "@/modules/movies/ui/views/movies-page-client";
+import { MoviesPageClient } from "@/modules/movies/ui/views/movies-page-client";
 import { handleAppError } from "@/shared/errors/handle-app-error";
 import { createTokenRepositoryCookies } from "@/shared/token/infrastructure/token-repository-cookies";
 
