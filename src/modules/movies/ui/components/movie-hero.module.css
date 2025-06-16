@@ -34,7 +34,7 @@
 }
 
 .description {
-  font-size: 16px;
+  font-size: 24px;
   margin-bottom: 2rem;
   display: -webkit-box;
   line-clamp: 4;
@@ -74,9 +74,6 @@
   .title {
     font-size: 76px;
     line-height: 75px;
-  }
-  .description {
-    font-size: 24px;
   }
   .overlay {
     padding-inline-start: 2rem;
