@@ -61,9 +61,10 @@ export function MoviesPageClient({ genres, movies }: MoviesPageClientProps) {
     setInitialLoading(false);
     setLoadingGenre(true);
 
-    fetch(`/api/films/genres/${selectedGenreId}/movies`)
-      .then((res) => res.json())
-      .then((data: Movie[]) =>
+    axios
+      .get<Movie[]>(`/api/films/genres/${selectedGenreId}/movies`)
+      .then((res) => res.data)
+      .then((data) =>
         setMoviesByGenre((prev) => ({
           ...prev,
           [selectedGenreId]: data,

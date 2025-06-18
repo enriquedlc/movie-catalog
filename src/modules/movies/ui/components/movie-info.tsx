@@ -33,7 +33,7 @@ export function MovieInfo({ movie, isInUserList }: MovieInfoProps) {
             transition: "bounceIn",
           });
         } else {
-          await axios.post(`/api/films/user/list`);
+          await axios.post(`/api/films/user/list`, { id: movie.id });
           setInList(true);
           showToastLib.success(`Added ${movie.title} to your list`, {
             duration: 3000,
